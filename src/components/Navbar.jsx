@@ -53,7 +53,7 @@ const Navbar = () => {
             : 'bg-white/70 backdrop-blur-md border-b border-border/50'
         }`}
       >
-        <div className="container mx-auto px-4 lg:px-8 w-full max-w-7xl">
+        <div className="container-page w-full">
           <div className="flex justify-between items-center h-[4.25rem] sm:h-[4.5rem]">
             <Link
               to="/"

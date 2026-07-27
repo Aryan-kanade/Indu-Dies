@@ -82,6 +82,8 @@ const About = () => {
         <meta property="og:description" content="Learn about Indu Dyes, a chemical manufacturing legacy established in 1982. Explore our state-of-the-art Dyes Preparation Plant, standardized quality management, and 24/7 Quality Control." />
         <meta property="og:url" content="https://www.indudyes.com/about" />
         <meta property="og:image" content="https://www.indudyes.com/logo.png" />
+        <meta property="og:site_name" content="Indu Dyes" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
       <div className="bg-background min-h-screen pt-20 pb-12 sm:pb-0">
@@ -137,13 +139,14 @@ const About = () => {
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">Over Four Decades of Growth</h2>
           </div>
           <div className="relative">
-            <div className="hidden lg:block absolute top-10 left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-primary/20 via-secondary/40 to-primary/20" />
+            <div className="hidden lg:block absolute top-10 left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-primary/20 via-secondary/40 to-primary/20 z-0" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {MILESTONES.map(({ year, title, desc, icon: Icon }, i) => (
                 <motion.div key={year} custom={i} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-40px' }} className="group">
                   <div className="flex flex-col items-center mb-5">
-                    <div className="w-20 h-20 rounded-xl bg-primary/10 border-2 border-primary text-primary flex items-center justify-center z-10 group-hover:scale-110 transition-transform duration-300 shadow-sm relative mb-2">
-                      <Icon className="w-8 h-8" />
+                    <div className="relative z-10 w-20 h-20 rounded-xl bg-card border-2 border-primary text-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm ring-4 ring-background mb-2">
+                      <div className="absolute inset-0 rounded-[10px] bg-primary/10 pointer-events-none" />
+                      <Icon className="relative w-8 h-8" />
                       <span className="absolute -bottom-3 text-xs font-bold bg-card border-2 border-primary text-primary px-2.5 py-0.5 rounded-full shadow-sm">
                         {year}
                       </span>
@@ -290,7 +293,7 @@ const About = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: '-40px' }}
-                  className="bg-card text-foreground rounded-xl border-2 border-primary p-5 flex flex-col group shadow-lg"
+                  className="premium-card p-5 flex flex-col group"
                 >
                   <div className="flex items-center mb-3">
                     <div className="icon-well !w-9 !h-9 mr-3">

@@ -1,40 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, useLocation, matchPath } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import PageTransition from './components/PageTransition';
-import Home from './pages/Home';
-import About from './pages/About';
-import Services from './pages/Services';
-import Products from './pages/Products';
-import Contact from './pages/Contact';
-import NotFound from './pages/NotFound';
 import { MessageSquare, X, Phone, Mail, MessageCircle, ChevronUp } from 'lucide-react';
 
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Services = lazy(() => import('./pages/Services'));
+const Products = lazy(() => import('./pages/Products'));
+const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
 const KNOWN_ROUTES = ['/', '/about', '/products', '/services', '/contact'];
+
+function RouteFallback() {
+  return (
+    <div className="min-h-[40vh] flex items-center justify-center pt-20" role="status" aria-live="polite">
+      <span className="text-sm text-muted-foreground font-medium">Loading…</span>
+    </div>
+  );
+}
 
 function AnimatedRoutes() {
   const location = useLocation();
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-        <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-        <Route path="/products" element={<PageTransition><Products /></PageTransition>} />
-        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AnimatePresence>
+    <Suspense fallback={<RouteFallback />}>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+          <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
+          <Route path="/products" element={<PageTransition><Products /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AnimatePresence>
+    </Suspense>
   );
 }
 
 function FloatingB2BWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const reduceMotion = useReducedMotion();
   const [menuPath, setMenuPath] = useState(location.pathname);
   if (location.pathname !== menuPath) {
     setMenuPath(location.pathname);
@@ -141,7 +153,9 @@ function FloatingB2BWidget() {
         aria-label="Contact Sales Desk"
       >
         <span className="absolute top-0.5 right-0.5 flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+          {!reduceMotion && (
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+          )}
           <span className="relative inline-flex rounded-full h-3 w-3 bg-white border border-primary" />
         </span>
         <motion.div
@@ -244,9 +258,12 @@ function AppShell() {
 
   return (
     <>
+      <a href="#main" className="skip-link">
+        Skip to main content
+      </a>
       <div className="flex flex-col min-h-screen">
         {!is404 && <Navbar />}
-        <main className="flex-grow">
+        <main id="main" tabIndex={-1} className="flex-grow outline-none">
           <AnimatedRoutes />
         </main>
         {!is404 && <Footer />}

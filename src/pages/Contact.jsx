@@ -87,8 +87,10 @@ const Contact = () => {
         <meta property="og:description" content="Get in touch with Indu Dyes for Reactive Dyes sales, Optical Brighteners, and Spray Drying Job Works inquiries. Corporate office located in Kolhapur, Maharashtra." />
         <meta property="og:url" content={`${SITE_URL}/contact`} />
         <meta property="og:image" content={`${SITE_URL}/logo.png`} />
+        <meta property="og:site_name" content="Indu Dyes" />
+        <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">
-          {`{"@context":"https://schema.org","@type":"ContactPage","mainEntity":{"@type":"Organization","name":"Indu Dyes","contactPoint":[{"@type":"ContactPoint","telephone":"+91-9881235243","contactType":"Sales","areaServed":"Global"}]}}`}
+          {`{"@context":"https://schema.org","@type":"ContactPage","name":"Contact Indu Dyes","url":"${SITE_URL}/contact","mainEntity":{"@type":"Organization","name":"Indu Dyes","url":"${SITE_URL}","email":"indudyes@gmail.com","telephone":"+91-9881235243","address":{"@type":"PostalAddress","streetAddress":"E-61, M.I.D.C., Shiroli","addressLocality":"Kolhapur","addressRegion":"Maharashtra","postalCode":"416122","addressCountry":"IN"},"contactPoint":[{"@type":"ContactPoint","telephone":"+91-9881235243","contactType":"sales","email":"indudyes@gmail.com","areaServed":"Global"}]}}`}
         </script>
       </Helmet>
 
@@ -306,8 +308,19 @@ const Contact = () => {
                         <p className="text-sm text-muted-foreground">
                           Fill out the form and our team will respond within one business day.
                           {!FORMSPREE_ENDPOINT && (
-                            <span className="block text-xs mt-1 text-muted-foreground/80">
-                              Submissions open your email client to send directly to our sales desk.
+                            <span className="block text-xs mt-2 text-muted-foreground/90 leading-relaxed">
+                              Online form submission is not configured yet — clicking submit opens your email
+                              draft to <strong className="text-foreground">indudyes@gmail.com</strong>.
+                              Prefer chat?{' '}
+                              <a
+                                href="https://wa.me/919881235243"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-primary font-semibold hover:underline"
+                              >
+                                Message us on WhatsApp
+                              </a>
+                              .
                             </span>
                           )}
                         </p>

@@ -37,9 +37,9 @@ const Footer = () => {
                 href="https://wa.me/919881235243"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-transparent border border-white/35 hover:border-sun hover:bg-white/10 text-white font-semibold text-sm px-7 py-3 rounded-lg transition-all"
+                className="hidden sm:flex items-center justify-center gap-2 bg-transparent border border-white/35 hover:border-white/60 hover:bg-white/10 text-white/90 font-medium text-sm px-7 py-3 rounded-lg transition-all"
               >
-                <MessageCircle className="w-4 h-4 shrink-0" /> WhatsApp Chat
+                <MessageCircle className="w-4 h-4 shrink-0" /> WhatsApp
               </a>
             </div>
           </div>

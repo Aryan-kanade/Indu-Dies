@@ -89,7 +89,7 @@ const WHY_US = [
   {
     icon: Globe,
     title: 'Export Ready',
-    desc: 'Active export through reputed Houses to global markets with proper documentation.',
+    desc: 'Active export through established export houses to global markets with proper documentation.',
   },
   {
     icon: Package,
@@ -124,8 +124,11 @@ const Home = () => {
         />
         <meta property="og:url" content="https://www.indudyes.com/" />
         <meta property="og:image" content="https://www.indudyes.com/logo.png" />
+        <meta property="og:site_name" content="Indu Dyes" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://www.indudyes.com/logo.png" />
         <script type="application/ld+json">
-          {`{"@context":"https://schema.org","@type":"ChemicalBusiness","name":"Indu Dyes","url":"https://www.indudyes.com","foundingDate":"1982","address":{"@type":"PostalAddress","streetAddress":"E-61, M.I.D.C., Shiroli","addressLocality":"Kolhapur","addressRegion":"Maharashtra","postalCode":"416122","addressCountry":"IN"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9881235243","contactType":"sales","areaServed":"Global"}}`}
+          {`{"@context":"https://schema.org","@type":["Organization","ChemicalBusiness"],"name":"Indu Dyes","url":"https://www.indudyes.com","foundingDate":"1982","logo":"https://www.indudyes.com/logo.png","address":{"@type":"PostalAddress","streetAddress":"E-61, M.I.D.C., Shiroli","addressLocality":"Kolhapur","addressRegion":"Maharashtra","postalCode":"416122","addressCountry":"IN"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9881235243","contactType":"sales","email":"indudyes@gmail.com","areaServed":"Global","availableLanguage":["en","hi"]}}`}
         </script>
       </Helmet>
 
@@ -136,7 +139,7 @@ const Home = () => {
           <div className="absolute top-1/4 left-[8%] w-[400px] h-[400px] rounded-full bg-primary/5 blur-[90px] pointer-events-none animate-float-orb-1" />
           <div className="absolute bottom-1/4 right-[10%] w-80 h-80 rounded-full bg-primary/8 blur-[72px] pointer-events-none animate-float-orb-2" />
 
-          <div className="relative z-10 px-4 lg:px-8 max-w-7xl mx-auto w-full">
+          <div className="relative z-10 container-page w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
               <div className="lg:col-span-7">
                 <motion.div
@@ -174,7 +177,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.48, duration: 0.5 }}
-                  className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 sm:mb-6"
+                  className="flex flex-col sm:flex-row gap-3 sm:gap-4"
                 >
                   <Link to="/products" className="premium-button w-full sm:w-auto justify-center min-h-11">
                     Explore Catalog <ArrowRight className="w-4 h-4 ml-2" />
@@ -182,28 +185,6 @@ const Home = () => {
                   <Link to="/services" className="outline-button w-full sm:w-auto justify-center min-h-11">
                     Job Works &amp; Capabilities
                   </Link>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.62, duration: 0.6 }}
-                  className="hidden sm:flex flex-wrap gap-3"
-                >
-                  {[
-                    { icon: Factory, label: '7 Reactors' },
-                    { icon: Globe, label: 'Global Exports' },
-                    { icon: Zap, label: '24/7 QC Ops' },
-                    { icon: Award, label: 'Quality Assured' },
-                  ].map(({ icon: Icon, label }) => (
-                    <div
-                      key={label}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/80 border border-border text-brand-navy shadow-sm"
-                    >
-                      <Icon className="w-3.5 h-3.5 text-primary shrink-0" />
-                      {label}
-                    </div>
-                  ))}
                 </motion.div>
 
                 {/* Compact facility card — mobile / tablet */}
@@ -277,7 +258,7 @@ const Home = () => {
                     <div className="space-y-3">
                       {[
                         'Automatic Temperature Controls',
-                        'Uni-form free flow Powders',
+                        'Uniform free-flowing powders',
                         'SS 316 Ribbon Blenders — 1.5 M³',
                         'Thermax Boiler 600 kg/hr',
                       ].map((feat) => (
@@ -411,7 +392,7 @@ const Home = () => {
               {
                 icon: Layers,
                 title: 'Optical Brighteners',
-                desc: 'High-performance fluorescent agents for textiles, and detergent sectors that counteract yellowing and enhance material brilliance.',
+                desc: 'High-performance fluorescent agents for textiles, paper, and detergent sectors that counteract yellowing and enhance material brilliance.',
                 link: '/products',
                 cta: 'Technical Specs',
               },
@@ -527,27 +508,20 @@ const Home = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="grid grid-cols-2 gap-5"
+              className="premium-card p-8 lg:p-10"
             >
-              {STATS.map(({ value, label, suffix, icon: Icon, animate }, i) => (
-                <motion.div
-                  key={label}
-                  custom={i}
-                  variants={cardVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="stat-card p-6"
-                >
-                  <Icon className="w-5 h-5 text-primary mx-auto mb-3 opacity-70" />
-                  <span className="block font-serif text-3xl md:text-4xl font-bold text-primary mb-1">
-                    {animate ? <Counter target={value} suffix={suffix} /> : <>{value}{suffix}</>}
-                  </span>
-                  <span className="text-[10.5px] font-semibold text-muted-foreground uppercase tracking-widest block">
-                    {label}
-                  </span>
-                </motion.div>
-              ))}
+              <p className="font-serif text-2xl lg:text-3xl font-bold text-foreground leading-snug mb-4">
+                Built for industrial buyers who need consistent shade, documented quality, and reliable supply.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                From reactive dye production to spray-drying job works, our Kolhapur plant supports domestic
+                and export customers with clear specifications and practical lead times.
+              </p>
+              <div className="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wider text-brand-navy">
+                <span className="px-3 py-1.5 rounded-md bg-muted border border-border">Reactive Dyes</span>
+                <span className="px-3 py-1.5 rounded-md bg-muted border border-border">Optical Brighteners</span>
+                <span className="px-3 py-1.5 rounded-md bg-muted border border-border">Spray Drying</span>
+              </div>
             </motion.div>
           </div>
         </section>

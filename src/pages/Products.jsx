@@ -5,11 +5,18 @@ import { Search, FileText, ArrowRight, CheckCircle2, Palette, Archive, Box, Glob
 import { Link } from 'react-router-dom';
 
 const PRODUCTS_LIST = [
-  { id: 1001, name: 'Reactive Red 195', shadeName: 'Brilliant Crimson', shadeColor: '#dc2626', category: 'Reactive Dye' },
-  { id: 1002, name: 'Optical Brightener OB+', shadeName: 'Intense Violet-Blue', shadeColor: '#2563eb', category: 'Opt. Brightener' },
-  { id: 1003, name: 'Reactive Yellow 145', shadeName: 'Golden Yellow', shadeColor: '#f59e0b', category: 'Reactive Dye' },
-  { id: 1004, name: 'Optical Brightener CBS-X', shadeName: 'Bright Blue', shadeColor: '#06b6d4', category: 'Opt. Brightener' },
-  { id: 1005, name: 'Reactive Blue 222', shadeName: 'Navy Blue', shadeColor: '#1e3a5f', category: 'Reactive Dye' },
+  { id: 1001, name: 'Reactive Red 195', shadeName: 'Brilliant Crimson', shadeColor: '#dc2626', category: 'Reactive Dye', series: 'HE', application: 'Cotton / Cellulosics' },
+  { id: 1002, name: 'Reactive Yellow 145', shadeName: 'Golden Yellow', shadeColor: '#f59e0b', category: 'Reactive Dye', series: 'HE', application: 'Cotton / Cellulosics' },
+  { id: 1003, name: 'Reactive Blue 222', shadeName: 'Navy Blue', shadeColor: '#1e3a5f', category: 'Reactive Dye', series: 'HE', application: 'Cotton / Cellulosics' },
+  { id: 1004, name: 'Reactive Orange 122', shadeName: 'Deep Orange', shadeColor: '#ea580c', category: 'Reactive Dye', series: 'ME', application: 'Cotton / Blends' },
+  { id: 1005, name: 'Reactive Violet 5', shadeName: 'Vivid Violet', shadeColor: '#7c3aed', category: 'Reactive Dye', series: 'ME', application: 'Cotton / Blends' },
+  { id: 1006, name: 'Reactive Black 5', shadeName: 'Carbon Black', shadeColor: '#1c1917', category: 'Reactive Dye', series: 'VS', application: 'Cotton Exhaust' },
+  { id: 1007, name: 'Reactive Blue 19', shadeName: 'Royal Blue', shadeColor: '#1d4ed8', category: 'Reactive Dye', series: 'VS', application: 'Cotton Exhaust' },
+  { id: 1008, name: 'Reactive Red 2', shadeName: 'Scarlet Red', shadeColor: '#b91c1c', category: 'Reactive Dye', series: 'Cold Brand', application: 'Cold Pad Batch' },
+  { id: 1009, name: 'Reactive Yellow 84', shadeName: 'Lemon Yellow', shadeColor: '#ca8a04', category: 'Reactive Dye', series: 'Cold Brand', application: 'Cold Pad Batch' },
+  { id: 1010, name: 'Optical Brightener OB+', shadeName: 'Intense Violet-Blue', shadeColor: '#2563eb', category: 'Opt. Brightener', series: 'OB', application: 'Textiles / Paper' },
+  { id: 1011, name: 'Optical Brightener CBS-X', shadeName: 'Bright Blue', shadeColor: '#06b6d4', category: 'Opt. Brightener', series: 'CBS', application: 'Detergents' },
+  { id: 1012, name: 'Optical Brightener BA', shadeName: 'Cool White', shadeColor: '#38bdf8', category: 'Opt. Brightener', series: 'BA', application: 'Paper / Pulp' },
 ];
 
 const DYE_SHADES = [
@@ -50,6 +57,8 @@ const Products = () => {
     const matchesSearch =
       p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.shadeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.series.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.application.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.id.toString().includes(searchTerm);
     return matchesCategory && matchesSearch;
   });
@@ -64,6 +73,8 @@ const Products = () => {
         <meta property="og:description" content="Explore our extensive catalog of Reactive Dyes (HE, ME, VS, Cold Brand) and Optical Brighteners for textiles, paper, and detergents. Request technical data sheets." />
         <meta property="og:url" content="https://www.indudyes.com/products" />
         <meta property="og:image" content="https://www.indudyes.com/logo.png" />
+        <meta property="og:site_name" content="Indu Dyes" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
       <div className="bg-background min-h-screen pt-20 pb-12 sm:pb-0">
@@ -242,11 +253,13 @@ const Products = () => {
 
           <div className="bg-card rounded-xl shadow-sm overflow-hidden border border-border -mx-4 sm:mx-0">
             <div className="overflow-x-auto px-4 sm:px-0">
-              <table className="min-w-[640px] w-full">
+              <table className="min-w-[820px] w-full">
                 <thead>
                   <tr className="bg-muted/50 border-b border-border">
                     <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-left text-muted-foreground">Product Name / Code</th>
                     <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-left text-muted-foreground">Shade</th>
+                    <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-left text-muted-foreground">Series</th>
+                    <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-left text-muted-foreground">Application</th>
                     <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-left text-muted-foreground">Category</th>
                     <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-center text-muted-foreground">TDS</th>
                   </tr>
@@ -269,9 +282,20 @@ const Products = () => {
                           </td>
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
-                              <div className="w-7 h-7 rounded-lg border-2 border-card shadow-md shrink-0" style={{ backgroundColor: p.shadeColor }} />
+                              <div
+                                className="w-7 h-7 rounded-lg border-2 border-card shadow-md shrink-0"
+                                style={{ backgroundColor: p.shadeColor }}
+                                role="img"
+                                aria-label={`${p.shadeName} shade swatch`}
+                              />
                               <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{p.shadeName}</span>
                             </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <span className="text-xs font-semibold text-foreground">{p.series}</span>
+                          </td>
+                          <td className="px-6 py-4">
+                            <span className="text-xs text-muted-foreground">{p.application}</span>
                           </td>
                           <td className="px-6 py-4">
                             <span className={`px-2.5 py-1 inline-flex text-[10px] font-semibold uppercase tracking-wider rounded-full ${
@@ -295,7 +319,7 @@ const Products = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={4} className="px-6 py-14 text-center text-sm font-medium text-muted-foreground">
+                        <td colSpan={6} className="px-6 py-14 text-center text-sm font-medium text-muted-foreground">
                           No products match your search or filter criteria.
                         </td>
                       </tr>
@@ -306,9 +330,9 @@ const Products = () => {
             </div>
             <div className="bg-muted/40 px-6 py-3.5 border-t border-border flex items-center justify-between">
               <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">
-                Partial catalog shown —{' '}
+                Representative catalog —{' '}
                 <Link to="/contact" className="text-primary hover:underline">contact sales</Link>{' '}
-                for full listing.
+                for shade cards and full listing.
               </p>
               <span className="text-[10px] text-muted-foreground font-mono">
                 {filteredProducts.length} result{filteredProducts.length !== 1 ? 's' : ''}
@@ -336,7 +360,7 @@ const Products = () => {
                 },
                 {
                   icon: Globe, title: 'Export Markets',
-                  desc: 'Active global presence. We export through reputed Export Houses to various international markets. Contact us for export pricing and documentation.',
+                  desc: 'Active global presence through established export houses. Contact us for export pricing and documentation.',
                 },
               ].map(({ icon: Icon, title, desc }) => (
                 <motion.div
