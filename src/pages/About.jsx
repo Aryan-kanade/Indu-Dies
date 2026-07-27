@@ -5,6 +5,8 @@ import {
   FlaskConical, Beaker, Zap, TrendingUp, Shield, Globe,
   Microscope, HeartHandshake, Leaf,
 } from 'lucide-react';
+import Reveal from '../components/Reveal';
+import { cardVariants, VIEWPORT } from '../motion/variants';
 
 const MILESTONES = [
   {
@@ -63,19 +65,11 @@ const VALUES = [
   { icon: TrendingUp, title: 'Consistent Growth', desc: 'Steady capacity additions since 1982 reflecting sustained B2B trust.' },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 22 },
-  visible: (i) => ({
-    opacity: 1, y: 0,
-    transition: { duration: 0.5, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
-
 const About = () => {
   return (
     <>
       <Helmet>
-        <title>About Indu Dyes | Corporate Profile &amp; Infrastructure</title>
+        <title>Indu Dyes</title>
         <meta name="description" content="Learn about Indu Dyes, a chemical manufacturing legacy established in 1982. Explore our state-of-the-art Dyes Preparation Plant, standardized quality management, and 24/7 Quality Control." />
         <link rel="canonical" href="https://www.indudyes.com/about" />
         <meta property="og:title" content="About Indu Dyes | Corporate Profile & Infrastructure" />
@@ -86,11 +80,11 @@ const About = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      <div className="bg-background min-h-screen pt-20 pb-12 sm:pb-0">
+      <div className="bg-background min-h-screen pb-12 sm:pb-0">
         {/* Hero */}
-        <section className="relative hero-gradient py-14 lg:py-16 border-b border-border overflow-hidden">
+        <section className="relative hero-gradient pt-nav border-b border-border overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
-          <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-14 lg:py-16">
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="eyebrow mb-6">
               Corporate Profile
             </motion.div>
@@ -142,7 +136,7 @@ const About = () => {
             <div className="hidden lg:block absolute top-10 left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-primary/20 via-secondary/40 to-primary/20 z-0" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {MILESTONES.map(({ year, title, desc, icon: Icon }, i) => (
-                <motion.div key={year} custom={i} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-40px' }} className="group">
+                <motion.div key={year} custom={i} variants={cardVariants} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="group">
                   <div className="flex flex-col items-center mb-5">
                     <div className="relative z-10 w-20 h-20 rounded-xl bg-card border-2 border-primary text-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm ring-4 ring-background mb-2">
                       <div className="absolute inset-0 rounded-[10px] bg-primary/10 pointer-events-none" />
@@ -165,12 +159,7 @@ const About = () => {
         {/* Overview + Personnel */}
         <section className="py-14 bg-card border-t border-border">
           <div className="max-w-7xl mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <motion.div
-              initial={{ opacity: 0, x: -36 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
+            <Reveal variant="fadeLeft">
               <span className="eyebrow mb-4">Our Story</span>
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-6 flex items-center">
                 <FileText className="w-6 h-6 mr-3 text-primary" />
@@ -198,15 +187,9 @@ const About = () => {
                   over a decade of deep technical expertise to the company&apos;s foundation.
                 </p>
               </div>
-            </motion.div>
+            </Reveal>
 
-            <motion.div
-              initial={{ opacity: 0, x: 36 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="bg-muted/50 p-8 rounded-xl border border-border"
-            >
+            <Reveal variant="fadeRight" delay={0.08} className="bg-muted/50 p-8 rounded-xl border border-border">
               <h3 className="font-serif text-xl font-bold text-foreground mb-6 flex items-center">
                 <Users className="w-5 h-5 mr-3 text-primary" /> Key Technical Personnel
               </h3>
@@ -219,42 +202,52 @@ const About = () => {
                   { init: 'VP', name: 'Mr. Vivekanand Patil', qual: 'B. Tech. Textile Chemistry', role: 'Director – Sales', note: '' },
                   { init: 'SSP', name: 'Mr. Somshekhar Patil', qual: 'B. Sc. | M.B.A.', role: 'Director – Operations', note: '' },
                 ].map(({ init, name, qual, role, note }) => (
-                  <li key={name} className="flex items-start bg-card p-4 rounded-xl border border-border hover:border-primary/30 transition-all duration-200 group">
-                    <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mr-4 shrink-0 font-serif font-bold text-[10px] tracking-tight group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                  <li
+                    key={name}
+                    className={`flex gap-4 bg-card p-4 rounded-xl border border-border hover:border-primary/30 transition-all duration-200 group ${
+                      note ? 'items-start' : 'items-center'
+                    }`}
+                  >
+                    <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center shrink-0 font-serif font-bold text-[10px] tracking-tight group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                       {init}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="flex flex-col items-start gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-2">
-                        <h4 className="font-serif font-bold text-foreground text-sm group-hover:text-primary transition-colors">{name}</h4>
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide whitespace-normal">{role}</span>
-                      </div>
+                      <h4 className="font-serif font-bold text-foreground text-sm group-hover:text-primary transition-colors">{name}</h4>
                       <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">{qual}</span>
                       {note && <p className="text-muted-foreground text-xs leading-relaxed mt-1.5">{note}</p>}
                     </div>
+                    <span className="text-[10px] sm:text-xs bg-primary/10 text-primary px-2.5 py-1 rounded-full font-semibold uppercase tracking-wide whitespace-nowrap shrink-0 self-center text-center">
+                      {role}
+                    </span>
                   </li>
                 ))}
               </ul>
-              <div className="bg-card rounded-xl border border-border p-4">
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-3">Direct Factory Desk</p>
-                <a href="tel:+919881235243" className="flex items-center justify-between group">
+              <div className="bg-card rounded-xl border border-border p-4 flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Direct Factory Desk</p>
                   <span className="text-xs text-muted-foreground font-medium">Factory Contact</span>
-                  <span className="text-xs font-bold text-primary group-hover:underline">+91 98812 35243</span>
+                </div>
+                <a
+                  href="tel:+919881235243"
+                  className="text-xs sm:text-sm font-bold text-primary hover:underline shrink-0 self-center"
+                >
+                  +91 98812 35243
                 </a>
               </div>
-            </motion.div>
+            </Reveal>
           </div>
         </section>
 
         {/* Values */}
         <section className="py-14 bg-muted/40 border-y border-border">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
-            <div className="text-center mb-10">
+            <Reveal className="text-center mb-10">
               <span className="eyebrow mb-4">What We Stand For</span>
               <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">Our Core Values</h2>
-            </div>
+            </Reveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {VALUES.map(({ icon: Icon, title, desc }, i) => (
-                <motion.div key={title} custom={i} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-40px' }} className="feature-card p-6 group">
+                <motion.div key={title} custom={i} variants={cardVariants} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="feature-card p-6 group">
                   <div className="icon-well mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                     <Icon className="w-6 h-6" />
                   </div>
@@ -267,14 +260,14 @@ const About = () => {
         </section>
 
         {/* Infrastructure */}
-        <section id="infrastructure" className="py-14 band-navy text-white relative overflow-hidden scroll-mt-24">
+        <section id="infrastructure" className="py-12 band-navy text-white relative overflow-hidden scroll-mt-24">
           <div className="absolute inset-0 line-grid opacity-20 pointer-events-none" />
           <div className="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
-            <div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div className="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div>
-                <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary mb-3">Operational Assets</span>
+                <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary mb-2">Operational Assets</span>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold">Technical Infrastructure</h2>
-                <p className="text-white/60 text-sm mt-2">State-of-the-art manufacturing and processing capabilities.</p>
+                <p className="text-white/60 text-sm mt-1.5">State-of-the-art manufacturing and processing capabilities.</p>
               </div>
               <div className="flex items-center gap-3 bg-white/10 border border-white/15 rounded-xl px-5 py-3 shrink-0">
                 <Shield className="w-5 h-5 text-primary shrink-0" />
@@ -284,7 +277,7 @@ const About = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 -mt-4 md:-mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
               {INFRA.map(({ icon: Icon, title, desc, specs, extra }, i) => (
                 <motion.div
                   key={title}
@@ -292,17 +285,17 @@ const About = () => {
                   variants={cardVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
+                  viewport={VIEWPORT}
                   className="premium-card p-5 flex flex-col group"
                 >
-                  <div className="flex items-center mb-3">
+                  <div className="flex items-center mb-2.5">
                     <div className="icon-well !w-9 !h-9 mr-3">
                       <Icon className="w-5 h-5" />
                     </div>
                     <h3 className="font-serif text-lg font-bold">{title}</h3>
                   </div>
-                  <p className="text-muted-foreground text-xs mb-5 leading-relaxed flex-grow">{desc}</p>
-                  <ul className="space-y-2.5">
+                  <p className="text-muted-foreground text-xs mb-3 leading-relaxed">{desc}</p>
+                  <ul className="space-y-2">
                     {specs.map((s) => (
                       <li key={s} className="flex items-start text-xs text-muted-foreground">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2.5 mt-1.5 shrink-0" />
@@ -311,7 +304,7 @@ const About = () => {
                     ))}
                   </ul>
                   {extra && (
-                    <div className="mt-5 pt-4 border-t border-border">
+                    <div className="mt-3 pt-3 border-t border-border">
                       <div className="flex items-start gap-2">
                         <Leaf className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
                         <p className="text-[10.5px] text-muted-foreground leading-relaxed">
@@ -329,12 +322,7 @@ const About = () => {
         {/* QC Lab */}
         <section className="py-14 px-4 lg:px-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -36 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
+            <Reveal variant="fadeLeft">
               <span className="eyebrow mb-4">Quality Assurance</span>
               <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">Quality Control Laboratory</h2>
               <p className="text-muted-foreground leading-relaxed text-sm mb-5">
@@ -358,15 +346,9 @@ const About = () => {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </Reveal>
 
-            <motion.div
-              initial={{ opacity: 0, x: 36 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="bg-card p-8 rounded-xl border border-border shadow-sm"
-            >
+            <Reveal variant="fadeRight" delay={0.08} className="bg-card p-8 rounded-xl border border-border shadow-sm">
               <h3 className="font-serif text-base font-bold mb-5 text-foreground border-b border-border pb-3 flex items-center">
                 <CheckCircle className="w-4 h-4 text-primary mr-2 shrink-0" />
                 Equipped Analytical Infrastructure
@@ -379,7 +361,7 @@ const About = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </Reveal>
           </div>
         </section>
       </div>

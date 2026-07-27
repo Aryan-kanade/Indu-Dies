@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, FileText, ArrowRight, CheckCircle2, Palette, Archive, Box, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Reveal from '../components/Reveal';
+import { cardVariants, VIEWPORT } from '../motion/variants';
 
 const PRODUCTS_LIST = [
   { id: 1001, name: 'Reactive Red 195', shadeName: 'Brilliant Crimson', shadeColor: '#dc2626', category: 'Reactive Dye', series: 'HE', application: 'Cotton / Cellulosics' },
@@ -39,11 +41,6 @@ const TABS = [
 const tdsMailto = (product) =>
   `mailto:indudyes@gmail.com?subject=${encodeURIComponent(`TDS Request: ${product.name} (ID-${product.id})`)}&body=${encodeURIComponent(`Hello Indu Dyes,\n\nPlease send the Technical Data Sheet for ${product.name} (ID-${product.id}).\n\nThank you.`)}`;
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] } }),
-};
-
 const Products = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -66,7 +63,7 @@ const Products = () => {
   return (
     <>
       <Helmet>
-        <title>Reactive Dyes &amp; Optical Brighteners Catalog | Indu Dyes</title>
+        <title>Indu Dyes</title>
         <meta name="description" content="Explore our extensive catalog of Reactive Dyes (HE, ME, VS, Cold Brand) and Optical Brighteners for textiles, paper, and detergents. Request technical data sheets." />
         <link rel="canonical" href="https://www.indudyes.com/products" />
         <meta property="og:title" content="Reactive Dyes & Optical Brighteners Catalog | Indu Dyes" />
@@ -77,10 +74,10 @@ const Products = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      <div className="bg-background min-h-screen pt-20 pb-12 sm:pb-0">
-        <section className="relative hero-gradient py-14 border-b border-border overflow-hidden">
+      <div className="bg-background min-h-screen pb-12 sm:pb-0">
+        <section className="relative hero-gradient pt-nav border-b border-border overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
-          <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-14">
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="eyebrow mb-5">
               Product Catalog
             </motion.div>
@@ -175,7 +172,7 @@ const Products = () => {
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={VIEWPORT}
                 className="bg-card rounded-xl shadow-sm border border-border overflow-hidden flex flex-col group hover:shadow-xl transition-all duration-300"
               >
                 <div className="p-5 sm:p-7 flex-grow flex flex-col">
@@ -344,10 +341,10 @@ const Products = () => {
         {/* Packaging */}
         <section className="py-14 bg-card border-t border-border">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
-            <div className="mb-12 text-center">
+            <Reveal className="mb-12 text-center">
               <span className="eyebrow mb-4">Logistics &amp; Fulfillment</span>
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">Packaging &amp; Global Logistics</h2>
-            </div>
+            </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
@@ -362,9 +359,14 @@ const Products = () => {
                   icon: Globe, title: 'Export Markets',
                   desc: 'Active global presence through established export houses. Contact us for export pricing and documentation.',
                 },
-              ].map(({ icon: Icon, title, desc }) => (
+              ].map(({ icon: Icon, title, desc }, i) => (
                 <motion.div
                   key={title}
+                  custom={i}
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={VIEWPORT}
                   whileHover={{ y: -4 }}
                   className="bg-muted/40 p-8 rounded-xl border border-border flex flex-col items-center text-center"
                 >
@@ -376,7 +378,7 @@ const Products = () => {
                 </motion.div>
               ))}
             </div>
-            <div className="mt-12 rounded-xl border border-primary/20 bg-primary/5 flex flex-col sm:flex-row items-center gap-4 justify-between p-6">
+            <Reveal variant="scaleIn" className="mt-12 rounded-xl border border-primary/20 bg-primary/5 flex flex-col sm:flex-row items-center gap-4 justify-between p-6">
               <div className="flex items-center gap-3">
                 <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
                 <p className="text-sm font-semibold text-foreground">
@@ -386,7 +388,7 @@ const Products = () => {
               <Link to="/contact" className="premium-button shrink-0 !py-2.5 !px-6 text-sm">
                 Request Samples
               </Link>
-            </div>
+            </Reveal>
           </div>
         </section>
       </div>

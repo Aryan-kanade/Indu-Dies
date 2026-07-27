@@ -1,26 +1,32 @@
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Home, Beaker, Settings, Phone, ArrowRight, AlertTriangle } from 'lucide-react';
 import BrandLogo from '../components/BrandLogo';
 
 const NotFound = () => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <>
     <Helmet>
-      <title>Page Not Found | Indu Dyes</title>
+      <title>Indu Dyes</title>
       <meta name="robots" content="noindex" />
     </Helmet>
     <div className="min-h-screen hero-gradient flex items-center justify-center px-4 relative overflow-hidden">
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/8 blur-[80px] pointer-events-none animate-float-orb-1" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-primary/8 blur-[60px] pointer-events-none animate-float-orb-2" />
+      {!reduceMotion && (
+        <>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/8 blur-[80px] pointer-events-none animate-float-orb-1" />
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-primary/8 blur-[60px] pointer-events-none animate-float-orb-2" />
+        </>
+      )}
       <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
 
       <div className="relative z-10 text-center max-w-2xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: reduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="mb-6"
         >
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-xl bg-primary/10 border border-primary/20 mb-10 mx-auto">

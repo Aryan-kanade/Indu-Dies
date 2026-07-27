@@ -7,6 +7,9 @@ import {
   Shirt, FileText, Sparkles, Wheat, FlaskConical, Atom,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import BrandLogo from '../components/BrandLogo';
+import Reveal from '../components/Reveal';
+import { cardVariants, VIEWPORT } from '../motion/variants';
 
 function Counter({ target, suffix = '', duration = 2000 }) {
   const [count, setCount] = useState(0);
@@ -98,20 +101,11 @@ const WHY_US = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
-
 const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Indu Dyes | Reactive Dyes &amp; Spray Drying Manufacturer</title>
+        <title>Indu Dyes</title>
         <meta
           name="description"
           content="Indu Dyes is a trusted chemical manufacturing partner delivering high-performance Reactive Dyes, Optical Brighteners, and Advanced Spray Drying Job Works for global industries since 1982."
@@ -132,14 +126,14 @@ const Home = () => {
         </script>
       </Helmet>
 
-      <div className="bg-background pt-20 pb-12 sm:pb-0 overflow-x-hidden">
+      <div className="bg-background pb-12 sm:pb-0 overflow-x-hidden">
         {/* Hero — light gradient, 2-col */}
-        <section className="relative hero-gradient py-12 sm:py-16 lg:py-20 overflow-hidden">
+        <section className="relative hero-gradient pt-nav overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
           <div className="absolute top-1/4 left-[8%] w-[400px] h-[400px] rounded-full bg-primary/5 blur-[90px] pointer-events-none animate-float-orb-1" />
           <div className="absolute bottom-1/4 right-[10%] w-80 h-80 rounded-full bg-primary/8 blur-[72px] pointer-events-none animate-float-orb-2" />
 
-          <div className="relative z-10 container-page w-full">
+          <div className="relative z-10 container-page w-full py-12 sm:py-16 lg:py-20">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
               <div className="lg:col-span-7">
                 <motion.div
@@ -150,6 +144,15 @@ const Home = () => {
                 >
                   <ShieldCheck className="w-4 h-4 shrink-0" />
                   Since 1982 · Kolhapur
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.05 }}
+                  className="mb-4 sm:mb-5"
+                >
+                  <BrandLogo size="xl" />
                 </motion.div>
 
                 <motion.h1
@@ -312,7 +315,7 @@ const Home = () => {
                   variants={cardVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
+                  viewport={VIEWPORT}
                   className="stat-card p-6 group"
                 >
                   <div className="icon-well mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -344,7 +347,7 @@ const Home = () => {
                   variants={cardVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
+                  viewport={VIEWPORT}
                   whileHover={{ y: -4 }}
                   className="bg-card border border-border rounded-xl p-5 text-center shadow-sm cursor-default hover:shadow-md hover:border-primary/30 transition-all duration-300"
                 >
@@ -363,7 +366,7 @@ const Home = () => {
 
         {/* Capabilities */}
         <section className="py-14 lg:py-16 px-4 lg:px-8 max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <Reveal className="text-center mb-16">
             <span className="eyebrow mb-4">Corporate Capabilities</span>
             <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Specialized Dyestuff &amp; Processing
@@ -371,7 +374,7 @@ const Home = () => {
             <p className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
               From reactive dyes to precision spray drying — manufacturing solutions engineered for industrial excellence.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {[
@@ -403,7 +406,7 @@ const Home = () => {
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={VIEWPORT}
                 className="premium-card p-8 flex flex-col h-full group"
               >
                 <div className="icon-well mb-6 group-hover:scale-105 transition-transform duration-200">
@@ -429,7 +432,7 @@ const Home = () => {
         <section className="py-14 lg:py-16 bg-muted/40 border-y border-border overflow-hidden relative">
           <div className="absolute right-0 top-0 w-96 h-96 bg-primary/5 rounded-full blur-[80px] pointer-events-none" />
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
-            <div className="text-center mb-16">
+            <Reveal className="text-center mb-16">
               <span className="eyebrow mb-4">Competitive Advantages</span>
               <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">
                 Why Partner with Indu Dyes?
@@ -438,7 +441,7 @@ const Home = () => {
                 More than four decades of B2B chemical manufacturing have shaped processes, standards, and
                 partnerships that set us apart.
               </p>
-            </div>
+            </Reveal>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {WHY_US.map(({ icon: Icon, title, desc }, i) => (
@@ -448,7 +451,7 @@ const Home = () => {
                   variants={cardVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
+                  viewport={VIEWPORT}
                   className="feature-card p-6 group"
                 >
                   <div className="icon-well mb-5 group-hover:scale-110 transition-transform duration-300">
@@ -467,12 +470,7 @@ const Home = () => {
         {/* Heritage */}
         <section className="py-14 lg:py-16 bg-card">
           <div className="max-w-7xl mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -36 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            >
+            <Reveal variant="fadeLeft">
               <span className="eyebrow mb-4">Manufacturing Heritage</span>
               <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
                 Partnering with Global Industries for 44+ Years.
@@ -501,15 +499,9 @@ const Home = () => {
                 Read Our Corporate Story{' '}
                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </motion.div>
+            </Reveal>
 
-            <motion.div
-              initial={{ opacity: 0, x: 36 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="premium-card p-8 lg:p-10"
-            >
+            <Reveal variant="fadeRight" className="premium-card p-8 lg:p-10">
               <p className="font-serif text-2xl lg:text-3xl font-bold text-foreground leading-snug mb-4">
                 Built for industrial buyers who need consistent shade, documented quality, and reliable supply.
               </p>
@@ -522,14 +514,14 @@ const Home = () => {
                 <span className="px-3 py-1.5 rounded-md bg-muted border border-border">Optical Brighteners</span>
                 <span className="px-3 py-1.5 rounded-md bg-muted border border-border">Spray Drying</span>
               </div>
-            </motion.div>
+            </Reveal>
           </div>
         </section>
 
         {/* CTA */}
         <section className="py-14 lg:py-16 band-navy text-center relative overflow-hidden">
           <div className="absolute inset-0 line-grid opacity-25 pointer-events-none" />
-          <div className="max-w-3xl mx-auto px-4 relative z-10">
+          <Reveal variant="scaleIn" className="max-w-3xl mx-auto px-4 relative z-10">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-white text-xs font-semibold uppercase tracking-widest mb-6">
               <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
               Start a Conversation
@@ -555,7 +547,7 @@ const Home = () => {
                 <Mail className="w-4 h-4 mr-2" /> Email Us
               </a>
             </div>
-          </div>
+          </Reveal>
         </section>
       </div>
     </>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, MessageCircle, ArrowRight } from 'lucide-react';
 import BrandLogo from './BrandLogo';
+import Reveal from './Reveal';
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -9,7 +10,7 @@ const Footer = () => {
     <footer className="pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pb-0">
       <div className="relative band-navy overflow-hidden">
         <div className="absolute inset-0 line-grid opacity-25 pointer-events-none" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-10">
+        <Reveal variant="scaleIn" className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="text-center lg:text-left">
               <span className="inline-flex items-center gap-2 mb-3">
@@ -43,11 +44,11 @@ const Footer = () => {
               </a>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       <div className="bg-card border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-10 pb-8">
+        <Reveal className="max-w-7xl mx-auto px-4 lg:px-8 pt-10 pb-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-10">
             <div className="lg:col-span-1 sm:col-span-2">
               <div className="flex items-center mb-5">
@@ -163,7 +164,7 @@ const Footer = () => {
               <span>B2B Chemicals</span>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </footer>
   );

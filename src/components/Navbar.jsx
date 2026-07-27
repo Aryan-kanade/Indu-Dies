@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, ChevronRight } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import BrandLogo from './BrandLogo';
 
 const Navbar = () => {
   const location = useLocation();
+  const reduceMotion = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -117,16 +118,16 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: reduceMotion ? 0.1 : 0.2 }}
               className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-[2px] md:hidden"
               aria-label="Close menu"
               onClick={() => setIsMenuOpen(false)}
             />
             <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.22, ease: 'easeInOut' }}
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
+              animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
+              transition={{ duration: reduceMotion ? 0.1 : 0.22, ease: 'easeInOut' }}
               id="mobile-nav-menu"
               className="fixed top-[calc(5rem+env(safe-area-inset-top))] left-0 right-0 z-50 md:hidden bg-card border-b border-border shadow-xl max-h-[calc(100dvh-5rem-env(safe-area-inset-top))] overflow-y-auto"
             >

@@ -5,6 +5,8 @@ import {
   ArrowRight, Thermometer, Wind, Shield, FileCheck, Beaker, Microscope,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Reveal from '../components/Reveal';
+import { cardVariants, VIEWPORT } from '../motion/variants';
 
 const PROCESS_STEPS = [
   {
@@ -53,16 +55,11 @@ const CAPABILITIES = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] } }),
-};
-
 const Services = () => {
   return (
     <>
       <Helmet>
-        <title>Precision Spray Drying Job Works | Powder Blending | Indu Dyes</title>
+        <title>Indu Dyes</title>
         <meta name="description" content="Indu Dyes offers advanced Spray Drying Job Works (350 kg/hr capacity) and custom industrial powder blending. We convert liquid formulations into pure, free-flowing powders." />
         <link rel="canonical" href="https://www.indudyes.com/services" />
         <meta property="og:title" content="Precision Spray Drying Job Works | Powder Blending | Indu Dyes" />
@@ -73,11 +70,11 @@ const Services = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      <div className="bg-background min-h-screen pt-20 pb-12 sm:pb-0">
+      <div className="bg-background min-h-screen pb-12 sm:pb-0">
         {/* Hero */}
-        <section className="relative hero-gradient py-14 border-b border-border overflow-hidden">
+        <section className="relative hero-gradient pt-nav border-b border-border overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
-          <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-14">
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="eyebrow mb-5">
               Industrial Capabilities
             </motion.div>
@@ -118,22 +115,16 @@ const Services = () => {
         </section>
 
         {/* Main service */}
-        <section className="py-14 px-4 lg:px-8 max-w-7xl mx-auto">
+        <section className="py-10 px-4 lg:px-8 max-w-7xl mx-auto">
           <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, x: -36 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="p-6 sm:p-8 lg:p-9 border-b lg:border-b-0 lg:border-r border-border"
-              >
-                <span className="eyebrow mb-4">Primary Capability</span>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-foreground mb-6 flex items-start sm:items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 lg:items-stretch">
+              <Reveal variant="fadeLeft" className="p-5 sm:p-6 lg:p-7 border-b lg:border-b-0 lg:border-r border-border">
+                <span className="eyebrow mb-3">Primary Capability</span>
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-foreground mb-4 flex items-start sm:items-center">
                   <Settings className="w-6 h-6 sm:w-7 sm:h-7 mr-3 text-primary shrink-0 mt-1 sm:mt-0" />
                   Spray Drying Job Works
                 </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed text-sm mb-10">
+                <div className="space-y-3 text-muted-foreground leading-relaxed text-sm mb-5">
                   <p>
                     Our advanced spray drying solution guarantees exceptional particle size control,
                     uniformity, and purity. We cater to a diverse range of B2B industries, providing
@@ -145,22 +136,22 @@ const Services = () => {
                     enhanced product stability.
                   </p>
                 </div>
-                <div className="grid grid-cols-2 gap-4 mb-10">
-                  <div className="bg-primary/5 border border-primary/15 p-5 rounded-xl text-center">
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-2">Evaporation Capacity</p>
+                <div className="grid grid-cols-2 gap-3 mb-5">
+                  <div className="bg-primary/5 border border-primary/15 p-3.5 rounded-xl text-center">
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-1">Evaporation Capacity</p>
                     <p className="font-serif text-2xl font-bold text-primary">
                       350 <span className="text-xs font-semibold text-muted-foreground">kg/hr</span>
                     </p>
                   </div>
-                  <div className="bg-muted/50 border border-border p-5 rounded-xl text-center">
-                    <Thermometer className="w-5 h-5 text-primary mx-auto mb-2" />
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-1">Process Control</p>
+                  <div className="bg-muted/50 border border-border p-3.5 rounded-xl text-center">
+                    <Thermometer className="w-5 h-5 text-primary mx-auto mb-1" />
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-0.5">Process Control</p>
                     <p className="text-xs font-semibold text-foreground">Temp. &amp; Moisture Regulated</p>
                   </div>
                 </div>
-                <div className="bg-muted/40 border border-border p-6 rounded-xl">
-                  <h4 className="font-semibold text-xs text-muted-foreground uppercase tracking-widest mb-4">Industries Served</h4>
-                  <div className="grid grid-cols-2 gap-2.5">
+                <div className="bg-muted/40 border border-border p-4 rounded-xl">
+                  <h4 className="font-semibold text-xs text-muted-foreground uppercase tracking-widest mb-3">Industries Served</h4>
+                  <div className="grid grid-cols-2 gap-2">
                     {INDUSTRIES.map((ind) => (
                       <div key={ind} className="flex items-center text-xs font-semibold text-muted-foreground">
                         <CheckCircle2 className="w-3.5 h-3.5 text-primary mr-2 shrink-0" /> {ind}
@@ -168,18 +159,15 @@ const Services = () => {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </Reveal>
 
-              <motion.div
-                initial={{ opacity: 0, x: 36 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="band-navy p-6 sm:p-8 lg:p-9 text-white relative overflow-hidden rounded-2xl"
+              <Reveal
+                variant="fadeRight"
+                className="band-navy p-5 sm:p-6 lg:p-7 text-white relative overflow-hidden flex flex-col h-full"
               >
                 <div className="absolute inset-0 line-grid opacity-20 pointer-events-none" />
-                <h3 className="relative font-serif text-lg font-bold mb-4 border-b border-white/15 pb-3">Process Technology</h3>
-                <ul className="relative space-y-3 mb-10 text-xs">
+                <h3 className="relative font-serif text-lg font-bold mb-3 border-b border-white/15 pb-2.5">Process Technology</h3>
+                <ul className="relative space-y-2.5 mb-5 text-xs">
                   {[
                     'Hot air spray drying via rotary atomizer and pressure nozzle systems.',
                     'Produces spherical or amorphous, tasteless, odorless, and free-flowing powders.',
@@ -191,11 +179,11 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="relative">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider mb-5">Sample Request Process</h4>
-                  <div className="space-y-4">
+                <div className="relative mt-auto">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider mb-3">Sample Request Process</h4>
+                  <div className="space-y-2.5 mb-5">
                     {PROCESS_STEPS.map(({ n, title }) => (
-                      <div key={n} className="flex items-center gap-4">
+                      <div key={n} className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/25 text-primary flex items-center justify-center font-bold text-[11px] shrink-0">
                           {n}
                         </div>
@@ -203,8 +191,15 @@ const Services = () => {
                       </div>
                     ))}
                   </div>
+                  <Link
+                    to="/contact"
+                    className="relative inline-flex items-center justify-center w-full min-h-11 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold uppercase tracking-wider transition-colors"
+                  >
+                    Request Sample / Quote
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Link>
                 </div>
-              </motion.div>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -212,10 +207,10 @@ const Services = () => {
         {/* 4-step process */}
         <section className="py-14 bg-card border-t border-border">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
-            <div className="text-center mb-10">
+            <Reveal className="text-center mb-10">
               <span className="eyebrow mb-4">How It Works</span>
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">4-Step Job Work Process</h2>
-            </div>
+            </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-0 relative">
               {/* Aligns with vertical center of the 64px icon boxes (py-8 + half icon) */}
               <div className="hidden lg:block absolute top-16 left-[12.5%] right-[12.5%] h-0.5 -translate-y-1/2 bg-gradient-to-r from-primary/20 via-mid-orange/40 to-primary/20 z-0" />
@@ -226,7 +221,7 @@ const Services = () => {
                   variants={cardVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
+                  viewport={VIEWPORT}
                   className="relative flex flex-col items-center text-center px-4 sm:px-6 py-6 sm:py-8 group border border-border rounded-xl md:border-0 md:rounded-none bg-muted/20 md:bg-transparent"
                 >
                   <div className="relative w-16 h-16 rounded-xl border-2 border-primary bg-card flex flex-col items-center justify-center mb-6 z-10 group-hover:scale-110 transition-transform duration-300 shadow-sm ring-4 ring-card">
@@ -256,10 +251,10 @@ const Services = () => {
 
         {/* Additional capabilities — EMS feature cards */}
         <section className="py-14 px-4 lg:px-8 max-w-7xl mx-auto border-t border-border">
-          <div className="mb-12 text-center">
+          <Reveal className="mb-12 text-center">
             <span className="eyebrow mb-4">Extended Services</span>
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">Additional Technical Capabilities</h2>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {CAPABILITIES.map(({ icon: Icon, title, desc }, i) => (
               <motion.div
@@ -268,7 +263,7 @@ const Services = () => {
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={VIEWPORT}
                 className="ems-feature-card p-6 flex items-start text-left group"
               >
                 <div className="icon-well mr-5 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
@@ -285,7 +280,7 @@ const Services = () => {
 
         {/* Turnaround + CTA */}
         <section className="pb-8 sm:pb-16 px-4 lg:px-8 max-w-7xl mx-auto">
-          <div className="relative bg-primary rounded-xl p-6 sm:p-10 text-center text-primary-foreground overflow-hidden">
+          <Reveal variant="scaleIn" className="relative bg-primary rounded-xl p-6 sm:p-10 text-center text-primary-foreground overflow-hidden">
             <div className="absolute inset-0 line-grid opacity-20 pointer-events-none" />
             <div className="relative z-10">
               <h3 className="font-serif text-2xl md:text-3xl font-bold mb-3">Ready to Start a Job Work?</h3>
@@ -309,7 +304,7 @@ const Services = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
       </div>
     </>

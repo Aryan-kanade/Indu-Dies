@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, useLocation, matchPath } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
@@ -6,40 +6,29 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import PageTransition from './components/PageTransition';
+import Home from './pages/Home';
+import About from './pages/About';
+import Services from './pages/Services';
+import Products from './pages/Products';
+import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 import { MessageSquare, X, Phone, Mail, MessageCircle, ChevronUp } from 'lucide-react';
 
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
-const Services = lazy(() => import('./pages/Services'));
-const Products = lazy(() => import('./pages/Products'));
-const Contact = lazy(() => import('./pages/Contact'));
-const NotFound = lazy(() => import('./pages/NotFound'));
-
 const KNOWN_ROUTES = ['/', '/about', '/products', '/services', '/contact'];
-
-function RouteFallback() {
-  return (
-    <div className="min-h-[40vh] flex items-center justify-center pt-20" role="status" aria-live="polite">
-      <span className="text-sm text-muted-foreground font-medium">Loading…</span>
-    </div>
-  );
-}
 
 function AnimatedRoutes() {
   const location = useLocation();
   return (
-    <Suspense fallback={<RouteFallback />}>
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-          <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-          <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-          <Route path="/products" element={<PageTransition><Products /></PageTransition>} />
-          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </AnimatePresence>
-    </Suspense>
+    <AnimatePresence mode="sync" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+        <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
+        <Route path="/products" element={<PageTransition><Products /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
   );
 }
 
@@ -84,10 +73,10 @@ function FloatingB2BWidget() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 16, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.94 }}
-            transition={{ duration: 0.22, ease: 'easeOut' }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.94 }}
+            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.94 }}
+            transition={{ duration: reduceMotion ? 0.12 : 0.22, ease: 'easeOut' }}
             className="mb-4 rounded-xl shadow-xl overflow-hidden glass-widget"
             style={{ width: '296px' }}
           >
@@ -139,7 +128,7 @@ function FloatingB2BWidget() {
 
             <div className="px-4 pb-4 bg-card">
               <p className="text-[9px] text-muted-foreground text-center">
-                Mon–Sat 9am–6pm IST · E-61, MIDC Shiroli, Kolhapur
+                Mon – Sat 9am – 6pm IST · E-61, MIDC Shiroli, Kolhapur
               </p>
             </div>
           </motion.div>
@@ -148,7 +137,7 @@ function FloatingB2BWidget() {
 
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        whileTap={{ scale: 0.93 }}
+        whileTap={reduceMotion ? undefined : { scale: 0.93 }}
         className="flex items-center justify-center w-14 h-14 text-primary-foreground rounded-full cursor-pointer relative bg-primary shadow-lg shadow-primary/30"
         aria-label="Contact Sales Desk"
       >
@@ -158,14 +147,18 @@ function FloatingB2BWidget() {
           )}
           <span className="relative inline-flex rounded-full h-3 w-3 bg-white border border-primary" />
         </span>
-        <motion.div
-          key={isOpen ? 'close' : 'open'}
-          initial={{ rotate: -90, opacity: 0 }}
-          animate={{ rotate: 0, opacity: 1 }}
-          transition={{ duration: 0.18 }}
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
-        </motion.div>
+        {reduceMotion ? (
+          isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />
+        ) : (
+          <motion.div
+            key={isOpen ? 'close' : 'open'}
+            initial={{ rotate: -90, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            transition={{ duration: 0.18 }}
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+          </motion.div>
+        )}
       </motion.button>
     </div>
   );
@@ -173,6 +166,7 @@ function FloatingB2BWidget() {
 
 function MobileBottomBar() {
   const [visible, setVisible] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 120);
@@ -184,10 +178,10 @@ function MobileBottomBar() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
-          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          initial={reduceMotion ? { opacity: 0 } : { y: 80, opacity: 0 }}
+          animate={reduceMotion ? { opacity: 1 } : { y: 0, opacity: 1 }}
+          exit={reduceMotion ? { opacity: 0 } : { y: 80, opacity: 0 }}
+          transition={{ duration: reduceMotion ? 0.12 : 0.28, ease: [0.22, 1, 0.36, 1] }}
           className="fixed bottom-0 left-0 right-0 z-50 sm:hidden"
         >
           <div className="bg-background/95 backdrop-blur-xl border-t border-border shadow-xl px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
@@ -225,6 +219,7 @@ function MobileBottomBar() {
 
 function BackToTop() {
   const [visible, setVisible] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);
@@ -236,11 +231,11 @@ function BackToTop() {
     <AnimatePresence>
       {visible && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.8, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 10 }}
-          transition={{ duration: 0.2 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.8, y: 10 }}
+          animate={reduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
+          exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.8, y: 10 }}
+          transition={{ duration: reduceMotion ? 0.12 : 0.2 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })}
           className="back-to-top fixed bottom-24 right-7 z-40 hidden sm:flex"
           aria-label="Back to top"
           title="Back to top"

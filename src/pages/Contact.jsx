@@ -5,6 +5,7 @@ import {
   MapPin, Mail, Phone, Clock, Send, MessageSquare, CheckCircle,
   Loader2, ArrowRight, AlertCircle, HeartHandshake, MailOpen,
 } from 'lucide-react';
+import Reveal from '../components/Reveal';
 
 const MAX_MESSAGE = 800;
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || '';
@@ -80,7 +81,7 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Contact Indu Dyes | Corporate Office &amp; Plant in Kolhapur</title>
+        <title>Indu Dyes</title>
         <meta name="description" content="Get in touch with Indu Dyes for Reactive Dyes sales, Optical Brighteners, and Spray Drying Job Works inquiries. Corporate office located in Kolhapur, Maharashtra." />
         <link rel="canonical" href={`${SITE_URL}/contact`} />
         <meta property="og:title" content="Contact Indu Dyes | Corporate Office & Plant in Kolhapur" />
@@ -94,10 +95,10 @@ const Contact = () => {
         </script>
       </Helmet>
 
-      <div className="bg-background min-h-screen pt-20 pb-12 sm:pb-0">
-        <section className="relative hero-gradient py-14 border-b border-border overflow-hidden">
+      <div className="bg-background min-h-screen pb-12 sm:pb-0">
+        <section className="relative hero-gradient pt-nav border-b border-border overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
-          <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-14">
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="eyebrow mb-5">
               Get In Touch
             </motion.div>
@@ -128,8 +129,12 @@ const Contact = () => {
                 <span className="text-[10.5px] font-bold text-primary uppercase tracking-widest">Sales Desk</span>
               </div>
               <span className="text-border text-xs">|</span>
+              <span className="text-xs text-muted-foreground font-medium px-2">
+                Mon–Sat 9am–6pm IST
+              </span>
+              <span className="text-muted-foreground/50 text-xs" aria-hidden="true">·</span>
               <span className="text-xs text-muted-foreground font-medium">
-                Mon–Sat 9am–6pm IST · reply within <strong className="text-foreground">one business day</strong>
+                reply within <strong className="text-foreground">one business day</strong>
               </span>
             </motion.div>
           </div>
@@ -138,7 +143,7 @@ const Contact = () => {
         <section className="py-14 px-4 lg:px-8 max-w-7xl mx-auto relative">
           <div className="absolute inset-0 hero-gradient opacity-50 pointer-events-none" />
           <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-5 space-y-5">
+            <Reveal variant="fadeLeft" className="lg:col-span-5 space-y-5">
               <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
                 <div className="px-5 sm:px-7 py-5 border-b border-border bg-muted/40">
                   <h2 className="font-serif text-base font-bold text-foreground">Corporate Office &amp; Plant</h2>
@@ -250,9 +255,9 @@ const Contact = () => {
                   We treat every inquiry as a long-term partnership. Our team responds personally — no automated replies.
                 </p>
               </div>
-            </div>
+            </Reveal>
 
-            <div className="lg:col-span-7">
+            <Reveal variant="fadeRight" delay={0.06} className="lg:col-span-7">
               <div className="bg-card p-5 sm:p-7 lg:p-10 rounded-xl border border-border shadow-sm">
                 <AnimatePresence mode="wait">
                   {showConfirm ? (
@@ -446,12 +451,12 @@ const Contact = () => {
                   )}
                 </AnimatePresence>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
 
         <section className="pb-8 sm:pb-16 px-4 lg:px-8 max-w-7xl mx-auto">
-          <div className="bg-card w-full rounded-xl border border-border shadow-sm overflow-hidden">
+          <Reveal variant="scaleIn" className="bg-card w-full rounded-xl border border-border shadow-sm overflow-hidden">
             <div className="px-5 sm:px-7 py-4 border-b border-border flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between bg-muted/40">
               <div className="flex items-center gap-3">
                 <div className="icon-well !w-8 !h-8">
@@ -483,7 +488,7 @@ const Contact = () => {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-          </div>
+          </Reveal>
         </section>
       </div>
     </>
