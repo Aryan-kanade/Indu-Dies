@@ -13,7 +13,6 @@ const SITE_URL = 'https://www.indudyes.com';
 
 const SUBJECT_LABELS = {
   sales_reactive: 'Product Sales: Reactive Dyes',
-  sales_optical: 'Product Sales: Optical Brighteners',
   job_work: 'Service: Spray Drying Job Work',
   sample: 'Sample Request',
   general: 'General Inquiry',
@@ -82,10 +81,10 @@ const Contact = () => {
     <>
       <Helmet>
         <title>Indu Dyes</title>
-        <meta name="description" content="Get in touch with Indu Dyes for Reactive Dyes sales, Optical Brighteners, and Spray Drying Job Works inquiries. Corporate office located in Kolhapur, Maharashtra." />
+        <meta name="description" content="Get in touch with Indu Dyes for Reactive Dyes sales and Spray Drying Job Works inquiries. Corporate office located in Kolhapur, Maharashtra." />
         <link rel="canonical" href={`${SITE_URL}/contact`} />
         <meta property="og:title" content="Contact Indu Dyes | Corporate Office & Plant in Kolhapur" />
-        <meta property="og:description" content="Get in touch with Indu Dyes for Reactive Dyes sales, Optical Brighteners, and Spray Drying Job Works inquiries. Corporate office located in Kolhapur, Maharashtra." />
+        <meta property="og:description" content="Get in touch with Indu Dyes for Reactive Dyes sales and Spray Drying Job Works inquiries. Corporate office located in Kolhapur, Maharashtra." />
         <meta property="og:url" content={`${SITE_URL}/contact`} />
         <meta property="og:image" content={`${SITE_URL}/logo.png`} />
         <meta property="og:site_name" content="Indu Dyes" />
@@ -115,8 +114,8 @@ const Contact = () => {
               transition={{ delay: 0.2 }}
               className="text-lg text-muted-foreground max-w-2xl leading-relaxed mb-10"
             >
-              Our technical sales team is available to discuss your requirements for Reactive Dyes,
-              Optical Brighteners, or Spray Drying Job Works.
+              Our technical sales team is available to discuss your requirements for Reactive Dyes
+              or Spray Drying Job Works.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 8 }}

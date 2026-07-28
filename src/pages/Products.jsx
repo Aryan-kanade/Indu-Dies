@@ -16,9 +16,6 @@ const PRODUCTS_LIST = [
   { id: 1007, name: 'Reactive Blue 19', shadeName: 'Royal Blue', shadeColor: '#1d4ed8', category: 'Reactive Dye', series: 'VS', application: 'Cotton Exhaust' },
   { id: 1008, name: 'Reactive Red 2', shadeName: 'Scarlet Red', shadeColor: '#b91c1c', category: 'Reactive Dye', series: 'Cold Brand', application: 'Cold Pad Batch' },
   { id: 1009, name: 'Reactive Yellow 84', shadeName: 'Lemon Yellow', shadeColor: '#ca8a04', category: 'Reactive Dye', series: 'Cold Brand', application: 'Cold Pad Batch' },
-  { id: 1010, name: 'Optical Brightener OB+', shadeName: 'Intense Violet-Blue', shadeColor: '#2563eb', category: 'Opt. Brightener', series: 'OB', application: 'Textiles / Paper' },
-  { id: 1011, name: 'Optical Brightener CBS-X', shadeName: 'Bright Blue', shadeColor: '#06b6d4', category: 'Opt. Brightener', series: 'CBS', application: 'Detergents' },
-  { id: 1012, name: 'Optical Brightener BA', shadeName: 'Cool White', shadeColor: '#38bdf8', category: 'Opt. Brightener', series: 'BA', application: 'Paper / Pulp' },
 ];
 
 const DYE_SHADES = [
@@ -32,42 +29,33 @@ const DYE_SHADES = [
   { name: 'Reactive Brown', hex: '#92400e', label: 'Warm Brown' },
 ];
 
-const TABS = [
-  { id: 'all', label: 'All Products' },
-  { id: 'reactive', label: 'Reactive Dyes' },
-  { id: 'brightener', label: 'Opt. Brighteners' },
-];
+
 
 const tdsMailto = (product) =>
   `mailto:indudyes@gmail.com?subject=${encodeURIComponent(`TDS Request: ${product.name} (ID-${product.id})`)}&body=${encodeURIComponent(`Hello Indu Dyes,\n\nPlease send the Technical Data Sheet for ${product.name} (ID-${product.id}).\n\nThank you.`)}`;
 
 const Products = () => {
-  const [activeTab, setActiveTab] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [hoveredShade, setHoveredShade] = useState(null);
 
   const filteredProducts = PRODUCTS_LIST.filter((p) => {
-    const matchesCategory =
-      activeTab === 'all' ||
-      (activeTab === 'reactive' && p.category === 'Reactive Dye') ||
-      (activeTab === 'brightener' && p.category === 'Opt. Brightener');
     const matchesSearch =
       p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.shadeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.series.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.application.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.id.toString().includes(searchTerm);
-    return matchesCategory && matchesSearch;
+    return matchesSearch;
   });
 
   return (
     <>
       <Helmet>
         <title>Indu Dyes</title>
-        <meta name="description" content="Explore our extensive catalog of Reactive Dyes (HE, ME, VS, Cold Brand) and Optical Brighteners for textiles, paper, and detergents. Request technical data sheets." />
+        <meta name="description" content="Explore our extensive catalog of Reactive Dyes (HE, ME, VS, Cold Brand). Request technical data sheets." />
         <link rel="canonical" href="https://www.indudyes.com/products" />
-        <meta property="og:title" content="Reactive Dyes & Optical Brighteners Catalog | Indu Dyes" />
-        <meta property="og:description" content="Explore our extensive catalog of Reactive Dyes (HE, ME, VS, Cold Brand) and Optical Brighteners for textiles, paper, and detergents. Request technical data sheets." />
+        <meta property="og:title" content="Reactive Dyes Catalog | Indu Dyes" />
+        <meta property="og:description" content="Explore our extensive catalog of Reactive Dyes (HE, ME, VS, Cold Brand). Request technical data sheets." />
         <meta property="og:url" content="https://www.indudyes.com/products" />
         <meta property="og:image" content="https://www.indudyes.com/logo.png" />
         <meta property="og:site_name" content="Indu Dyes" />
@@ -94,8 +82,7 @@ const Products = () => {
               transition={{ delay: 0.2 }}
               className="text-lg text-muted-foreground max-w-2xl leading-relaxed"
             >
-              High-quality Reactive Dyes and Optical Brighteners formulated and tested to conform
-              to rigorous international specifications.
+              High-quality Reactive Dyes formulated and tested to conform to rigorous international specifications.
             </motion.p>
           </div>
         </section>
@@ -178,7 +165,6 @@ const Products = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    setActiveTab('reactive');
                     document.getElementById('shade-cards')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
                   className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
@@ -215,22 +201,7 @@ const Products = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-6">
-            {TABS.map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2.5 min-h-10 text-xs font-semibold uppercase tracking-wider rounded-full border transition-all duration-200 cursor-pointer ${
-                  activeTab === tab.id
-                    ? 'bg-primary text-primary-foreground border-primary'
-                    : 'bg-card text-muted-foreground border-border hover:border-primary hover:text-primary'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+
 
           <p className="sm:hidden text-xs text-muted-foreground mb-2 px-1">
             Swipe sideways to see all columns
@@ -244,7 +215,6 @@ const Products = () => {
                     <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-left text-muted-foreground">Shade</th>
                     <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-left text-muted-foreground">Series</th>
                     <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-left text-muted-foreground">Application</th>
-                    <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-left text-muted-foreground">Category</th>
                     <th className="text-xs font-semibold uppercase tracking-wider px-4 sm:px-6 py-4 text-center text-muted-foreground">TDS</th>
                   </tr>
                 </thead>
@@ -281,15 +251,6 @@ const Products = () => {
                           <td className="px-4 sm:px-6 py-4">
                             <span className="text-xs text-muted-foreground">{p.application}</span>
                           </td>
-                          <td className="px-4 sm:px-6 py-4">
-                            <span className={`px-2.5 py-1 inline-flex text-[10px] font-semibold uppercase tracking-wider rounded-full ${
-                              p.category === 'Reactive Dye'
-                                ? 'bg-primary/10 text-primary'
-                                : 'bg-muted text-muted-foreground'
-                            }`}>
-                              {p.category}
-                            </span>
-                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <a
                               href={tdsMailto(p)}
@@ -303,8 +264,8 @@ const Products = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={6} className="px-4 sm:px-6 py-14 text-center text-sm font-medium text-muted-foreground">
-                          No products match your search or filter criteria.
+                        <td colSpan={5} className="px-4 sm:px-6 py-14 text-center text-sm font-medium text-muted-foreground">
+                          No products match your search criteria.
                         </td>
                       </tr>
                     )}

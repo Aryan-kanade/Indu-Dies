@@ -34,7 +34,7 @@ const MILESTONES = [
 const INFRA = [
   {
     icon: FlaskConical, title: 'Dyes Plant',
-    desc: 'Synthesis of Reactive Dyes & Optical Brighteners via universal flow design.',
+    desc: 'Synthesis of Reactive Dyes via universal flow design.',
     specs: ['Capacity: 1000 lt. to 15000 lt.', 'MOC: MSRL (2 nos.)', 'HDPE: 4 nos.', 'S.S.: 1 no.'],
   },
   {
@@ -102,7 +102,7 @@ const About = () => {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="text-lg text-muted-foreground max-w-2xl leading-relaxed mb-8"
             >
-              A legacy of excellence in reactive dyes, optical brighteners, and precision spray drying
+              A legacy of excellence in reactive dyes and precision spray drying
               since 1982, built on a foundation of technical depth and rigorous quality.
             </motion.p>
             <motion.div
@@ -168,7 +168,7 @@ const About = () => {
               <div className="space-y-4 text-muted-foreground text-sm leading-relaxed mb-7">
                 <p>
                   We take this opportunity to introduce ourselves as a Manufacturer of Reactive Dyes
-                  and Optical Brighteners conforming to rigorous international specifications. A dedicated
+                  conforming to rigorous international specifications. A dedicated
                   group of highly qualified technologists and chemists in the plant and laboratory
                   oversees every kilogram of our products.
                 </p>

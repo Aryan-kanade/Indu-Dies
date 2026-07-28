@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import {
   Beaker, Droplets, ArrowRight, ShieldCheck, Package,
   Factory, Mail, CheckCircle2, Zap, Globe, Award, Clock, Microscope, Truck,
-  Shirt, FileText, Sparkles, Wheat, FlaskConical, Atom,
+  Shirt, Wheat, FlaskConical, Atom,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import BrandLogo from '../components/BrandLogo';
@@ -51,8 +51,6 @@ const STATS = [
 
 const SECTORS = [
   { icon: Shirt, title: 'Textile Mills', sub: 'Reactive Dyestuffs' },
-  { icon: FileText, title: 'Paper Mills', sub: 'Optical Brightening' },
-  { icon: Sparkles, title: 'Detergents', sub: 'Active Brighteners' },
   { icon: Wheat, title: 'Agri-Chemicals', sub: 'Custom Spray Drying' },
   { icon: FlaskConical, title: 'Specialty Chem.', sub: 'Toll Processing' },
   { icon: Atom, title: 'Inorganic Chem.', sub: 'Powder Conversion' },
@@ -62,7 +60,6 @@ const TICKER_ITEMS = [
   'Quality Checked Dyes & Chemicals',
   'HE · ME · VS · Cold Brand Reactive Dyes',
   'Spray Drying: 350 kg/hr Evaporation Capacity',
-  'Optical Brighteners for Textiles · Paper · Detergents',
   'Since 1982 · Kolhapur, Maharashtra',
   'Custom Powder Blending & Formulation',
   'B2B Manufacturer & Exporter',
@@ -72,7 +69,7 @@ const WHY_US = [
   {
     icon: Microscope,
     title: '44+ Years Expertise',
-    desc: 'Deep technical expertise across reactive dyes, brighteners, and spray drying since our founding in 1982.',
+    desc: 'Deep technical expertise across reactive dyes and spray drying since our founding in 1982.',
   },
   {
     icon: ShieldCheck,
@@ -108,13 +105,13 @@ const Home = () => {
         <title>Indu Dyes</title>
         <meta
           name="description"
-          content="Indu Dyes is a trusted chemical manufacturing partner delivering high-performance Reactive Dyes, Optical Brighteners, and Advanced Spray Drying Job Works for global industries since 1982."
+          content="Indu Dyes is a trusted chemical manufacturing partner delivering high-performance Reactive Dyes and Advanced Spray Drying Job Works for global industries since 1982."
         />
         <link rel="canonical" href="https://www.indudyes.com/" />
         <meta property="og:title" content="Indu Dyes | Reactive Dyes & Spray Drying Manufacturer" />
         <meta
           property="og:description"
-          content="Indu Dyes is a trusted chemical manufacturing partner delivering high-performance Reactive Dyes, Optical Brighteners, and Advanced Spray Drying Job Works for global industries since 1982."
+          content="Indu Dyes is a trusted chemical manufacturing partner delivering high-performance Reactive Dyes and Advanced Spray Drying Job Works for global industries since 1982."
         />
         <meta property="og:url" content="https://www.indudyes.com/" />
         <meta property="og:image" content="https://www.indudyes.com/logo.png" />
@@ -339,7 +336,7 @@ const Home = () => {
             <p className="flex w-full justify-center section-label mb-8">
               <span className="accent-line" /> Key Industrial Sectors Served <span className="accent-line" />
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
               {SECTORS.map(({ icon: Icon, title, sub }, i) => (
                 <motion.div
                   key={title}
@@ -504,7 +501,6 @@ const Home = () => {
               </p>
               <div className="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wider text-brand-navy">
                 <span className="px-3 py-1.5 rounded-md bg-muted border border-border">Reactive Dyes</span>
-                <span className="px-3 py-1.5 rounded-md bg-muted border border-border">Optical Brighteners</span>
                 <span className="px-3 py-1.5 rounded-md bg-muted border border-border">Spray Drying</span>
               </div>
             </Reveal>

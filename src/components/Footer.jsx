@@ -57,7 +57,7 @@ const Footer = () => {
                 </Link>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                A trusted B2B manufacturer of Reactive Dyes and Optical Brighteners since 1982.
+                A trusted B2B manufacturer of Reactive Dyes since 1982.
                 Precision spray drying and custom blending for industrial applications.
               </p>
               <a
@@ -75,7 +75,6 @@ const Footer = () => {
               <ul className="space-y-3">
                 {[
                   { to: '/products', label: 'Reactive Dyes' },
-                  { to: '/products', label: 'Optical Brighteners' },
                   { to: '/products', label: 'Full Catalog' },
                 ].map(({ to, label }) => (
                   <li key={label}>
