@@ -26,9 +26,11 @@ const Navbar = () => {
       if (e.key === 'Escape') setIsMenuOpen(false);
     };
     window.addEventListener('keydown', onKey);
+    window.dispatchEvent(new CustomEvent('indu-nav-menu', { detail: { open: true } }));
     return () => {
       document.body.style.overflow = prev;
       window.removeEventListener('keydown', onKey);
+      window.dispatchEvent(new CustomEvent('indu-nav-menu', { detail: { open: false } }));
     };
   }, [isMenuOpen]);
 
@@ -129,9 +131,9 @@ const Navbar = () => {
               exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
               transition={{ duration: reduceMotion ? 0.1 : 0.22, ease: 'easeInOut' }}
               id="mobile-nav-menu"
-              className="fixed top-[calc(5rem+env(safe-area-inset-top))] left-0 right-0 z-50 md:hidden bg-card border-b border-border shadow-xl max-h-[calc(100dvh-5rem-env(safe-area-inset-top))] overflow-y-auto"
+              className="fixed top-[calc(4.25rem+env(safe-area-inset-top))] left-0 right-0 z-50 md:hidden bg-card border-b border-border shadow-xl max-h-[calc(100dvh-4.25rem-env(safe-area-inset-top))] overflow-y-auto"
             >
-              <div className="flex flex-col p-4 space-y-1 pb-[max(1rem,env(safe-area-inset-bottom))]">
+              <div className="flex flex-col p-4 space-y-1 pb-[max(5.5rem,calc(4.5rem+env(safe-area-inset-bottom)))]">
                 {navLinks.map((link) => (
                   <Link
                     key={link.to}

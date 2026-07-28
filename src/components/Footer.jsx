@@ -16,7 +16,7 @@ const Footer = () => {
               <span className="inline-flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full bg-primary" />
                 <span className="text-[10.5px] font-semibold text-white/75 uppercase tracking-widest">
-                  Sales Desk · Mon–Sat 9am–6pm IST
+                  Sales Desk · Tue–Sun 10am–6pm IST
                 </span>
               </span>
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-white mb-2">
@@ -30,7 +30,7 @@ const Footer = () => {
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
               <Link
                 to="/contact"
-                className="premium-button text-sm !px-7 !py-3"
+                className="premium-button w-full sm:w-auto justify-center text-sm !px-7 !py-3"
               >
                 Submit Inquiry <ArrowRight className="w-4 h-4 ml-1" />
               </Link>

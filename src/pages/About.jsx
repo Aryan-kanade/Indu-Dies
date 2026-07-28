@@ -80,7 +80,7 @@ const About = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      <div className="bg-background min-h-screen pb-12 sm:pb-0">
+      <div className="bg-background min-h-screen pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pb-0">
         {/* Hero */}
         <section className="relative hero-gradient pt-nav border-b border-border overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
@@ -109,7 +109,7 @@ const About = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.38, duration: 0.5 }}
-              className="flex flex-wrap gap-4"
+              className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4"
             >
               {[
                 { val: '1982', lbl: 'Est.' },
@@ -117,7 +117,7 @@ const About = () => {
                 { val: '7', lbl: 'Reactors' },
                 { val: '100%', lbl: 'QC Tested' },
               ].map(({ val, lbl }) => (
-                <div key={lbl} className="bg-card border border-border rounded-xl px-5 py-3 text-center min-w-[80px] shadow-sm">
+                <div key={lbl} className="bg-card border border-border rounded-xl px-4 py-3.5 text-center shadow-sm w-full sm:w-auto sm:min-w-[80px] sm:px-5">
                   <span className="block font-serif text-xl font-bold text-primary">{val}</span>
                   <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">{lbl}</span>
                 </div>
@@ -146,7 +146,7 @@ const About = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="mt-8 text-center p-5 rounded-xl bg-card border border-border shadow-sm hover:border-primary/30 hover:shadow-md transition-all duration-300">
+                  <div className="mt-6 sm:mt-8 text-center p-5 rounded-xl bg-card border border-border shadow-sm hover:border-primary/30 hover:shadow-md transition-all duration-300">
                     <h3 className="font-serif font-bold text-foreground text-sm mb-2 group-hover:text-primary transition-colors">{title}</h3>
                     <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
                   </div>
@@ -189,9 +189,9 @@ const About = () => {
               </div>
             </Reveal>
 
-            <Reveal variant="fadeRight" delay={0.08} className="bg-muted/50 p-8 rounded-xl border border-border">
+            <Reveal variant="fadeRight" delay={0.08} className="bg-muted/50 p-4 sm:p-8 rounded-xl border border-border">
               <h3 className="font-serif text-xl font-bold text-foreground mb-6 flex items-center">
-                <Users className="w-5 h-5 mr-3 text-primary" /> Key Technical Personnel
+                <Users className="w-5 h-5 mr-3 text-primary shrink-0" /> Key Technical Personnel
               </h3>
               <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
                 Our leadership team combines deep process chemistry expertise with hands-on manufacturing experience.
@@ -204,32 +204,42 @@ const About = () => {
                 ].map(({ init, name, qual, role, note }) => (
                   <li
                     key={name}
-                    className={`flex gap-4 bg-card p-4 rounded-xl border border-border hover:border-primary/30 transition-all duration-200 group ${
-                      note ? 'items-start' : 'items-center'
-                    }`}
+                    className="flex items-start gap-3 sm:gap-4 bg-card p-4 rounded-xl border border-border hover:border-primary/30 transition-all duration-200 group"
                   >
-                    <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center shrink-0 font-serif font-bold text-[10px] tracking-tight group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center shrink-0 font-serif font-bold text-[10px] tracking-tight group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                       {init}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h4 className="font-serif font-bold text-foreground text-sm group-hover:text-primary transition-colors">{name}</h4>
-                      <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">{qual}</span>
-                      {note && <p className="text-muted-foreground text-xs leading-relaxed mt-1.5">{note}</p>}
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                        <div className="min-w-0">
+                          <h4 className="font-serif font-bold text-foreground text-base sm:text-sm leading-snug group-hover:text-primary transition-colors">
+                            {name}
+                          </h4>
+                          <span className="block text-xs text-muted-foreground font-semibold uppercase tracking-wider mt-0.5">
+                            {qual}
+                          </span>
+                        </div>
+                        <span className="inline-flex self-start text-[10px] sm:text-xs bg-primary/10 text-primary px-2.5 py-1 rounded-full font-semibold uppercase tracking-wide whitespace-nowrap">
+                          {role}
+                        </span>
+                      </div>
+                      {note && (
+                        <p className="text-muted-foreground text-xs leading-relaxed mt-2">
+                          {note}
+                        </p>
+                      )}
                     </div>
-                    <span className="text-[10px] sm:text-xs bg-primary/10 text-primary px-2.5 py-1 rounded-full font-semibold uppercase tracking-wide whitespace-nowrap shrink-0 self-center text-center">
-                      {role}
-                    </span>
                   </li>
                 ))}
               </ul>
-              <div className="bg-card rounded-xl border border-border p-4 flex items-center justify-between gap-4">
+              <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                 <div className="min-w-0">
                   <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Direct Factory Desk</p>
                   <span className="text-xs text-muted-foreground font-medium">Factory Contact</span>
                 </div>
                 <a
                   href="tel:+919881235243"
-                  className="text-xs sm:text-sm font-bold text-primary hover:underline shrink-0 self-center"
+                  className="text-sm font-bold text-primary hover:underline"
                 >
                   +91 98812 35243
                 </a>
@@ -277,7 +287,7 @@ const About = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
               {INFRA.map(({ icon: Icon, title, desc, specs, extra }, i) => (
                 <motion.div
                   key={title}
@@ -286,16 +296,16 @@ const About = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={VIEWPORT}
-                  className="premium-card p-5 flex flex-col group"
+                  className="premium-card p-5 flex flex-col h-full group"
                 >
                   <div className="flex items-center mb-2.5">
-                    <div className="icon-well !w-9 !h-9 mr-3">
+                    <div className="icon-well !w-9 !h-9 mr-3 shrink-0">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="font-serif text-lg font-bold">{title}</h3>
+                    <h3 className="font-serif text-lg font-bold leading-tight">{title}</h3>
                   </div>
-                  <p className="text-muted-foreground text-xs mb-3 leading-relaxed">{desc}</p>
-                  <ul className="space-y-2">
+                  <p className="text-muted-foreground text-xs mb-3 leading-relaxed min-h-[2.75rem]">{desc}</p>
+                  <ul className="space-y-2 flex-1">
                     {specs.map((s) => (
                       <li key={s} className="flex items-start text-xs text-muted-foreground">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2.5 mt-1.5 shrink-0" />
@@ -303,8 +313,8 @@ const About = () => {
                       </li>
                     ))}
                   </ul>
-                  {extra && (
-                    <div className="mt-3 pt-3 border-t border-border">
+                  {extra ? (
+                    <div className="mt-auto pt-3 border-t border-border">
                       <div className="flex items-start gap-2">
                         <Leaf className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
                         <p className="text-[10.5px] text-muted-foreground leading-relaxed">
@@ -312,6 +322,8 @@ const About = () => {
                         </p>
                       </div>
                     </div>
+                  ) : (
+                    <div className="mt-auto pt-3" aria-hidden="true" />
                   )}
                 </motion.div>
               ))}
@@ -334,15 +346,15 @@ const About = () => {
                 Our dedicated team of chemists and technical staff work continuously to formulate, test,
                 and deliver products that strictly adhere to customized B2B client specifications.
               </p>
-              <div className="flex gap-4 flex-wrap">
+              <div className="grid grid-cols-3 gap-2 sm:flex sm:gap-4 sm:flex-wrap">
                 {[
                   { val: '44+', lbl: 'Years Testing Exp.' },
                   { val: '24/7', lbl: 'QC Operations' },
                   { val: '9', lbl: 'Analytical Instruments' },
                 ].map(({ val, lbl }) => (
-                  <div key={lbl} className="stat-card px-6 py-4 min-w-[110px]">
-                    <span className="block font-serif text-2xl font-bold text-primary mb-1">{val}</span>
-                    <span className="text-[9.5px] font-semibold text-muted-foreground uppercase tracking-wider">{lbl}</span>
+                  <div key={lbl} className="stat-card px-2.5 py-3 sm:px-6 sm:py-4 sm:min-w-[110px]">
+                    <span className="block font-serif text-xl sm:text-2xl font-bold text-primary mb-1">{val}</span>
+                    <span className="text-[9px] sm:text-[9.5px] font-semibold text-muted-foreground uppercase tracking-wider leading-tight block">{lbl}</span>
                   </div>
                 ))}
               </div>

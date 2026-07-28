@@ -95,7 +95,7 @@ const Contact = () => {
         </script>
       </Helmet>
 
-      <div className="bg-background min-h-screen pb-12 sm:pb-0">
+      <div className="bg-background min-h-screen pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pb-0">
         <section className="relative hero-gradient pt-nav border-b border-border overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
           <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-14">
@@ -122,17 +122,17 @@ const Contact = () => {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.38 }}
-              className="inline-flex items-center gap-3 bg-card border border-border rounded-xl px-5 py-3 shadow-sm"
+              className="flex flex-col items-start gap-2 sm:inline-flex sm:flex-row sm:items-center sm:gap-3 bg-card border border-border rounded-xl px-4 sm:px-5 py-3 shadow-sm w-full sm:w-auto max-w-full"
             >
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-primary" />
                 <span className="text-[10.5px] font-bold text-primary uppercase tracking-widest">Sales Desk</span>
               </div>
-              <span className="text-border text-xs">|</span>
-              <span className="text-xs text-muted-foreground font-medium px-2">
-                Mon–Sat 9am–6pm IST
+              <span className="hidden sm:inline text-border text-xs">|</span>
+              <span className="text-xs text-muted-foreground font-medium sm:px-2">
+                Tue–Sun 10am–6pm IST
               </span>
-              <span className="text-muted-foreground/50 text-xs" aria-hidden="true">·</span>
+              <span className="hidden sm:inline text-muted-foreground/50 text-xs" aria-hidden="true">·</span>
               <span className="text-xs text-muted-foreground font-medium">
                 reply within <strong className="text-foreground">one business day</strong>
               </span>
@@ -192,8 +192,8 @@ const Contact = () => {
                     <div>
                       <span className="form-label mb-1.5">Operating Hours</span>
                       <p className="text-muted-foreground text-sm">
-                        Mon – Sat: <strong className="text-foreground">09:00 – 18:00 IST</strong><br />
-                        <span className="text-muted-foreground text-xs">Sunday: Closed</span>
+                        Tue – Sun: <strong className="text-foreground">10:00 – 18:00 IST</strong><br />
+                        <span className="text-muted-foreground text-xs">Monday: Holiday</span>
                       </p>
                     </div>
                   </div>
@@ -435,7 +435,7 @@ const Contact = () => {
                           </div>
                         </div>
                         <div className="pt-3 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                          <button type="submit" disabled={status === 'sending'} className="premium-button !px-7 !py-3 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
+                          <button type="submit" disabled={status === 'sending'} className="premium-button w-full sm:w-auto justify-center !px-7 !py-3 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
                             {status === 'sending' ? (
                               <><Loader2 className="w-4 h-4 mr-2 animate-spin shrink-0" /> Sending...</>
                             ) : (

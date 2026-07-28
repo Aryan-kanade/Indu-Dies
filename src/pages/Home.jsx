@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, useInView } from 'framer-motion';
 import {
-  Beaker, Droplets, ArrowRight, ShieldCheck, Layers, Package,
+  Beaker, Droplets, ArrowRight, ShieldCheck, Package,
   Factory, Mail, CheckCircle2, Zap, Globe, Award, Clock, Microscope, Truck,
   Shirt, FileText, Sparkles, Wheat, FlaskConical, Atom,
 } from 'lucide-react';
@@ -126,7 +126,7 @@ const Home = () => {
         </script>
       </Helmet>
 
-      <div className="bg-background pb-12 sm:pb-0 overflow-x-hidden">
+      <div className="bg-background pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pb-0 overflow-x-hidden">
         {/* Hero — light gradient, 2-col */}
         <section className="relative hero-gradient pt-nav overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
@@ -159,7 +159,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-[1.08] text-foreground"
+                  className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-[1.08] text-foreground"
                 >
                   Manufacturers of{' '}
                   <span className="text-gradient">Textile Dyes &amp; Chemicals.</span>
@@ -171,7 +171,7 @@ const Home = () => {
                   transition={{ delay: 0.32, duration: 0.6 }}
                   className="text-base sm:text-lg text-muted-foreground mb-4 sm:mb-6 max-w-xl leading-relaxed"
                 >
-                  An established manufacturing partner delivering Reactive Dyes, Optical Brighteners,
+                  An established manufacturing partner delivering Reactive Dyes
                   and precision Spray Drying Job Works for global industries{' '}
                   <span className="text-foreground font-semibold">since 1982.</span>
                 </motion.p>
@@ -316,12 +316,12 @@ const Home = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={VIEWPORT}
-                  className="stat-card p-6 group"
+                  className="stat-card p-4 sm:p-6 group"
                 >
                   <div className="icon-well mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <div className="font-serif text-4xl lg:text-5xl font-bold text-primary mb-1">
+                  <div className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-1">
                     {animate ? <Counter target={value} suffix={suffix} /> : <>{value}{suffix}</>}
                   </div>
                   <span className="text-[10.5px] font-semibold text-muted-foreground uppercase tracking-widest block">
@@ -336,7 +336,7 @@ const Home = () => {
         {/* Sectors */}
         <section className="py-14 bg-muted/50 border-b border-border">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
-            <p className="text-center section-label mb-8 justify-center">
+            <p className="flex w-full justify-center section-label mb-8">
               <span className="accent-line" /> Key Industrial Sectors Served <span className="accent-line" />
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -366,7 +366,7 @@ const Home = () => {
 
         {/* Capabilities */}
         <section className="py-14 lg:py-16 px-4 lg:px-8 max-w-7xl mx-auto">
-          <Reveal className="text-center mb-16">
+          <Reveal className="text-center mb-10 sm:mb-16">
             <span className="eyebrow mb-4">Corporate Capabilities</span>
             <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Specialized Dyestuff &amp; Processing
@@ -376,7 +376,7 @@ const Home = () => {
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {[
               {
                 icon: Beaker,
@@ -391,13 +391,6 @@ const Home = () => {
                 desc: 'Advanced job works converting liquid formulations into uniform, pure, and free-flowing industrial powders at 350 kg/hr evaporation capacity.',
                 link: '/services',
                 cta: 'Process Details',
-              },
-              {
-                icon: Layers,
-                title: 'Optical Brighteners',
-                desc: 'High-performance fluorescent agents for textiles, paper, and detergent sectors that counteract yellowing and enhance material brilliance.',
-                link: '/products',
-                cta: 'Technical Specs',
               },
             ].map(({ icon: Icon, title, desc, link, cta }, i) => (
               <motion.div
@@ -432,7 +425,7 @@ const Home = () => {
         <section className="py-14 lg:py-16 bg-muted/40 border-y border-border overflow-hidden relative">
           <div className="absolute right-0 top-0 w-96 h-96 bg-primary/5 rounded-full blur-[80px] pointer-events-none" />
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
-            <Reveal className="text-center mb-16">
+            <Reveal className="text-center mb-10 sm:mb-16">
               <span className="eyebrow mb-4">Competitive Advantages</span>
               <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">
                 Why Partner with Indu Dyes?

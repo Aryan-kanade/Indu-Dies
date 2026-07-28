@@ -177,7 +177,7 @@
   }
 
   .ems-feature-card {
-    @apply bg-card rounded-xl text-center transition-all duration-300;
+    @apply bg-card rounded-xl text-left transition-all duration-300;
     border: 1px solid color-mix(in srgb, var(--color-primary) 32%, var(--color-border));
   }
 

@@ -92,7 +92,7 @@ function FloatingB2BWidget() {
                   <h4 className="text-sm font-serif font-bold text-primary-foreground">
                     B2B Sales &amp; Inquiries
                   </h4>
-                  <p className="text-[10px] text-primary-foreground/70 mt-0.5">Mon–Sat 9am–6pm IST · reply in one business day</p>
+                  <p className="text-[10px] text-primary-foreground/70 mt-0.5">Tue–Sun 10am–6pm IST · reply in one business day</p>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -128,7 +128,7 @@ function FloatingB2BWidget() {
 
             <div className="px-4 pb-4 bg-card">
               <p className="text-[9px] text-muted-foreground text-center">
-                Mon – Sat 9am – 6pm IST · E-61, MIDC Shiroli, Kolhapur
+                Tue – Sun 10am – 6pm IST · E-61, MIDC Shiroli, Kolhapur
               </p>
             </div>
           </motion.div>
@@ -166,6 +166,7 @@ function FloatingB2BWidget() {
 
 function MobileBottomBar() {
   const [visible, setVisible] = useState(false);
+  const [navMenuOpen, setNavMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -173,6 +174,14 @@ function MobileBottomBar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    const onNavMenu = (e) => setNavMenuOpen(Boolean(e.detail?.open));
+    window.addEventListener('indu-nav-menu', onNavMenu);
+    return () => window.removeEventListener('indu-nav-menu', onNavMenu);
+  }, []);
+
+  if (navMenuOpen) return null;
 
   return (
     <AnimatePresence>

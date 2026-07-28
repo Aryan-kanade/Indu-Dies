@@ -74,7 +74,7 @@ const Products = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      <div className="bg-background min-h-screen pb-12 sm:pb-0">
+      <div className="bg-background min-h-screen pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pb-0">
         <section className="relative hero-gradient pt-nav border-b border-border overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
           <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-14">
@@ -149,60 +149,44 @@ const Products = () => {
 
         {/* Category cards */}
         <section className="py-14 px-4 lg:px-8 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                title: 'Reactive Dyes',
-                desc: 'Our extensive range offers excellent color fastness, brilliant shades, and high tinctorial value specifically engineered for demanding textile applications.',
-                items: ['HE Series', 'ME Series', 'VS Series', 'Cold Brand'],
-                tab: 'reactive',
-                cta: 'View Dyes Table',
-              },
-              {
-                title: 'Optical Brighteners',
-                desc: 'High-performance optical brightening agents that enhance whiteness and brightness, effectively counteracting inherent yellowish tints in textiles, paper, and detergents.',
-                items: ['Textiles Processing', 'Paper Manufacturing', 'Detergents Formulation'],
-                tab: 'brightener',
-                cta: 'View Brighteners Table',
-              },
-            ].map(({ title, desc, items, tab, cta }, i) => (
-              <motion.div
-                key={title}
-                custom={i}
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={VIEWPORT}
-                className="bg-card rounded-xl shadow-sm border border-border overflow-hidden flex flex-col group hover:shadow-xl transition-all duration-300"
-              >
-                <div className="p-5 sm:p-7 flex-grow flex flex-col">
-                  <h2 className="font-serif text-2xl font-bold text-foreground mb-3">{title}</h2>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-8 flex-grow">{desc}</p>
-                  <div className="bg-muted/50 p-4 rounded-xl border border-border mb-6">
-                    <h4 className="font-semibold text-[10px] text-muted-foreground uppercase tracking-widest mb-3">
-                      {tab === 'reactive' ? 'Available Series' : 'Application Grades'}
-                    </h4>
-                    <ul className={`grid ${tab === 'reactive' ? 'grid-cols-2' : 'grid-cols-1'} gap-2 text-xs font-semibold text-foreground`}>
-                      {items.map((s) => (
-                        <li key={s} className="flex items-center">
-                          <span className="w-1.5 h-1.5 bg-primary mr-2 rounded-full shrink-0" /> {s}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setActiveTab(tab);
-                      document.getElementById('shade-cards')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }}
-                    className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
-                  >
-                    {cta} <ArrowRight className="w-4 h-4 ml-1.5 group-hover/link:translate-x-1 transition-transform" />
-                  </button>
+          <div className="max-w-2xl">
+            <motion.div
+              custom={0}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={VIEWPORT}
+              className="bg-card rounded-xl shadow-sm border border-border overflow-hidden flex flex-col group hover:shadow-xl transition-all duration-300"
+            >
+              <div className="p-5 sm:p-7 flex-grow flex flex-col">
+                <h2 className="font-serif text-2xl font-bold text-foreground mb-3">Reactive Dyes</h2>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-8 flex-grow">
+                  Our extensive range offers excellent color fastness, brilliant shades, and high tinctorial value specifically engineered for demanding textile applications.
+                </p>
+                <div className="bg-muted/50 p-4 rounded-xl border border-border mb-6">
+                  <h4 className="font-semibold text-[10px] text-muted-foreground uppercase tracking-widest mb-3">
+                    Available Series
+                  </h4>
+                  <ul className="grid grid-cols-2 gap-2 text-xs font-semibold text-foreground">
+                    {['HE Series', 'ME Series', 'VS Series', 'Cold Brand'].map((s) => (
+                      <li key={s} className="flex items-center">
+                        <span className="w-1.5 h-1.5 bg-primary mr-2 rounded-full shrink-0" /> {s}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </motion.div>
-            ))}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('reactive');
+                    document.getElementById('shade-cards')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
+                >
+                  View Dyes Table <ArrowRight className="w-4 h-4 ml-1.5 group-hover/link:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -248,6 +232,9 @@ const Products = () => {
             ))}
           </div>
 
+          <p className="sm:hidden text-xs text-muted-foreground mb-2 px-1">
+            Swipe sideways to see all columns
+          </p>
           <div className="bg-card rounded-xl shadow-sm overflow-hidden border border-border -mx-4 sm:mx-0">
             <div className="overflow-x-auto px-4 sm:px-0">
               <table className="min-w-[820px] w-full">
@@ -273,11 +260,11 @@ const Products = () => {
                           transition={{ duration: 0.2, delay: i * 0.04 }}
                           className="hover:bg-muted/30 transition-colors"
                         >
-                          <td className="px-6 py-4">
+                          <td className="px-4 sm:px-6 py-4">
                             <div className="text-sm font-semibold text-foreground">{p.name}</div>
                             <div className="text-[10px] font-mono text-muted-foreground mt-0.5">ID-{p.id}</div>
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="px-4 sm:px-6 py-4">
                             <div className="flex items-center gap-3">
                               <div
                                 className="w-7 h-7 rounded-lg border-2 border-card shadow-md shrink-0"
@@ -288,13 +275,13 @@ const Products = () => {
                               <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{p.shadeName}</span>
                             </div>
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="px-4 sm:px-6 py-4">
                             <span className="text-xs font-semibold text-foreground">{p.series}</span>
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="px-4 sm:px-6 py-4">
                             <span className="text-xs text-muted-foreground">{p.application}</span>
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="px-4 sm:px-6 py-4">
                             <span className={`px-2.5 py-1 inline-flex text-[10px] font-semibold uppercase tracking-wider rounded-full ${
                               p.category === 'Reactive Dye'
                                 ? 'bg-primary/10 text-primary'
@@ -303,7 +290,7 @@ const Products = () => {
                               {p.category}
                             </span>
                           </td>
-                          <td className="px-6 py-4 text-center">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <a
                               href={tdsMailto(p)}
                               className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 min-h-10 rounded-md text-xs font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200 border border-primary/20"
@@ -316,7 +303,7 @@ const Products = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={6} className="px-6 py-14 text-center text-sm font-medium text-muted-foreground">
+                        <td colSpan={6} className="px-4 sm:px-6 py-14 text-center text-sm font-medium text-muted-foreground">
                           No products match your search or filter criteria.
                         </td>
                       </tr>
@@ -325,7 +312,7 @@ const Products = () => {
                 </tbody>
               </table>
             </div>
-            <div className="bg-muted/40 px-6 py-3.5 border-t border-border flex items-center justify-between">
+            <div className="bg-muted/40 px-4 sm:px-6 py-3.5 border-t border-border flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">
                 Representative catalog —{' '}
                 <Link to="/contact" className="text-primary hover:underline">contact sales</Link>{' '}
@@ -385,7 +372,7 @@ const Products = () => {
                   All products manufactured under standardized quality management processes with full QC documentation available on request.
                 </p>
               </div>
-              <Link to="/contact" className="premium-button shrink-0 !py-2.5 !px-6 text-sm">
+              <Link to="/contact" className="premium-button w-full sm:w-auto justify-center shrink-0 !py-2.5 !px-6 text-sm">
                 Request Samples
               </Link>
             </Reveal>

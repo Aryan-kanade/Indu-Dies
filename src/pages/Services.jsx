@@ -70,7 +70,7 @@ const Services = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      <div className="bg-background min-h-screen pb-12 sm:pb-0">
+      <div className="bg-background min-h-screen pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pb-0">
         {/* Hero */}
         <section className="relative hero-gradient pt-nav border-b border-border overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
@@ -222,7 +222,7 @@ const Services = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={VIEWPORT}
-                  className="relative flex flex-col items-center text-center px-4 sm:px-6 py-6 sm:py-8 group border border-border rounded-xl md:border-0 md:rounded-none bg-muted/20 md:bg-transparent"
+                  className="relative flex flex-col items-center text-center px-4 sm:px-6 py-5 sm:py-8 group border border-border rounded-xl md:border-0 md:rounded-none bg-muted/20 md:bg-transparent"
                 >
                   <div className="relative w-16 h-16 rounded-xl border-2 border-primary bg-card flex flex-col items-center justify-center mb-6 z-10 group-hover:scale-110 transition-transform duration-300 shadow-sm ring-4 ring-card">
                     <div className="absolute inset-0 rounded-[10px] bg-primary/10 pointer-events-none" />
@@ -242,7 +242,7 @@ const Services = () => {
               ))}
             </div>
             <div className="mt-8 text-center">
-              <Link to="/contact" className="premium-button inline-flex !py-3 !px-8">
+              <Link to="/contact" className="premium-button w-full sm:w-auto justify-center inline-flex !py-3 !px-8">
                 Start Your Inquiry <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -264,14 +264,18 @@ const Services = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={VIEWPORT}
-                className="ems-feature-card p-6 flex items-start text-left group"
+                className="ems-feature-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-start gap-4 group"
               >
-                <div className="icon-well mr-5 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                <div className="icon-well shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                   <Icon className="w-5 h-5" />
                 </div>
-                <div>
-                  <h3 className="font-serif text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{title}</h3>
-                  <p className="text-muted-foreground text-xs leading-relaxed">{desc}</p>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-serif text-lg sm:text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm sm:text-xs leading-relaxed text-left">
+                    {desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -290,15 +294,15 @@ const Services = () => {
               <p className="text-primary-foreground/70 text-xs mb-7 max-w-lg mx-auto">
                 Trial batch samples typically dispatch within <strong className="text-primary-foreground">7–10 business days</strong> of specification approval.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto">
-                <Link to="/contact" className="inline-flex items-center justify-center bg-card text-primary font-semibold px-7 py-3 rounded-md hover:bg-muted transition-all min-h-11">
+              <div className="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto w-full">
+                <Link to="/contact" className="inline-flex items-center justify-center bg-card text-primary font-semibold px-7 py-3 rounded-md hover:bg-muted transition-all min-h-11 w-full sm:w-auto">
                   Submit Inquiry <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <a
                   href="https://wa.me/919881235243"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center border border-white/40 text-primary-foreground font-semibold px-7 py-3 rounded-md hover:bg-white/10 transition-all min-h-11"
+                  className="inline-flex items-center justify-center border border-white/40 text-primary-foreground font-semibold px-7 py-3 rounded-md hover:bg-white/10 transition-all min-h-11 w-full sm:w-auto"
                 >
                   WhatsApp
                 </a>
