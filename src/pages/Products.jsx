@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, FileText, ArrowRight, CheckCircle2, Palette, Archive, Box, Globe } from 'lucide-react';
+import { FileText, ArrowRight, CheckCircle2, Palette, Archive, Box, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal';
 import { cardVariants, VIEWPORT } from '../motion/variants';
@@ -35,18 +35,7 @@ const tdsMailto = (product) =>
   `mailto:indudyes@gmail.com?subject=${encodeURIComponent(`TDS Request: ${product.name} (ID-${product.id})`)}&body=${encodeURIComponent(`Hello Indu Dyes,\n\nPlease send the Technical Data Sheet for ${product.name} (ID-${product.id}).\n\nThank you.`)}`;
 
 const Products = () => {
-  const [searchTerm, setSearchTerm] = useState('');
   const [hoveredShade, setHoveredShade] = useState(null);
-
-  const filteredProducts = PRODUCTS_LIST.filter((p) => {
-    const matchesSearch =
-      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.shadeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.series.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.application.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.id.toString().includes(searchTerm);
-    return matchesSearch;
-  });
 
   return (
     <>
@@ -178,26 +167,13 @@ const Products = () => {
 
         {/* Product table */}
         <section id="shade-cards" className="py-14 px-4 lg:px-8 max-w-7xl mx-auto scroll-mt-24">
-          <div className="mb-10 flex flex-col md:flex-row md:justify-between md:items-end gap-5 border-b border-border pb-5">
+          <div className="mb-10 border-b border-border pb-5">
             <div>
               <span className="eyebrow mb-2">Detailed Specifications</span>
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">Product Information Table</h2>
               <p className="text-sm text-muted-foreground mt-1">
                 Technical Data Sheets are available on request — use Request TDS to email our sales desk.
               </p>
-            </div>
-            <div className="relative max-w-xs w-full">
-              <label htmlFor="product-search" className="sr-only">Search products</label>
-              <input
-                id="product-search"
-                type="search"
-                placeholder="Search products, codes..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="form-input pl-9"
-                aria-label="Search products by name or code"
-              />
-              <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true" />
             </div>
           </div>
 
@@ -220,55 +196,47 @@ const Products = () => {
                 </thead>
                 <tbody className="divide-y divide-border">
                   <AnimatePresence>
-                    {filteredProducts.length > 0 ? (
-                      filteredProducts.map((p, i) => (
-                        <motion.tr
-                          key={p.id}
-                          initial={{ opacity: 0, y: 6 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.2, delay: i * 0.04 }}
-                          className="hover:bg-muted/30 transition-colors"
-                        >
-                          <td className="px-4 sm:px-6 py-4">
-                            <div className="text-sm font-semibold text-foreground">{p.name}</div>
-                            <div className="text-[10px] font-mono text-muted-foreground mt-0.5">ID-{p.id}</div>
-                          </td>
-                          <td className="px-4 sm:px-6 py-4">
-                            <div className="flex items-center gap-3">
-                              <div
-                                className="w-7 h-7 rounded-lg border-2 border-card shadow-md shrink-0"
-                                style={{ backgroundColor: p.shadeColor }}
-                                role="img"
-                                aria-label={`${p.shadeName} shade swatch`}
-                              />
-                              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{p.shadeName}</span>
-                            </div>
-                          </td>
-                          <td className="px-4 sm:px-6 py-4">
-                            <span className="text-xs font-semibold text-foreground">{p.series}</span>
-                          </td>
-                          <td className="px-4 sm:px-6 py-4">
-                            <span className="text-xs text-muted-foreground">{p.application}</span>
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <a
-                              href={tdsMailto(p)}
-                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 min-h-10 rounded-md text-xs font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200 border border-primary/20"
-                              title="Request Technical Data Sheet"
-                            >
-                              <FileText className="w-3.5 h-3.5" /> Request
-                            </a>
-                          </td>
-                        </motion.tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan={5} className="px-4 sm:px-6 py-14 text-center text-sm font-medium text-muted-foreground">
-                          No products match your search criteria.
+                    {PRODUCTS_LIST.map((p, i) => (
+                      <motion.tr
+                        key={p.id}
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2, delay: i * 0.04 }}
+                        className="hover:bg-muted/30 transition-colors"
+                      >
+                        <td className="px-4 sm:px-6 py-4">
+                          <div className="text-sm font-semibold text-foreground">{p.name}</div>
+                          <div className="text-[10px] font-mono text-muted-foreground mt-0.5">ID-{p.id}</div>
                         </td>
-                      </tr>
-                    )}
+                        <td className="px-4 sm:px-6 py-4">
+                          <div className="flex items-center gap-3">
+                            <div
+                              className="w-7 h-7 rounded-lg border-2 border-card shadow-md shrink-0"
+                              style={{ backgroundColor: p.shadeColor }}
+                              role="img"
+                              aria-label={`${p.shadeName} shade swatch`}
+                            />
+                            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{p.shadeName}</span>
+                          </div>
+                        </td>
+                        <td className="px-4 sm:px-6 py-4">
+                          <span className="text-xs font-semibold text-foreground">{p.series}</span>
+                        </td>
+                        <td className="px-4 sm:px-6 py-4">
+                          <span className="text-xs text-muted-foreground">{p.application}</span>
+                        </td>
+                        <td className="px-4 sm:px-6 py-4 text-center">
+                          <a
+                            href={tdsMailto(p)}
+                            className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 min-h-10 rounded-md text-xs font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200 border border-primary/20"
+                            title="Request Technical Data Sheet"
+                          >
+                            <FileText className="w-3.5 h-3.5" /> Request
+                          </a>
+                        </td>
+                      </motion.tr>
+                    ))}
                   </AnimatePresence>
                 </tbody>
               </table>
@@ -280,7 +248,7 @@ const Products = () => {
                 for shade cards and full listing.
               </p>
               <span className="text-[10px] text-muted-foreground font-mono">
-                {filteredProducts.length} result{filteredProducts.length !== 1 ? 's' : ''}
+                {PRODUCTS_LIST.length} result{PRODUCTS_LIST.length !== 1 ? 's' : ''}
               </span>
             </div>
           </div>
